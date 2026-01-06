@@ -46,12 +46,12 @@ const Slider = {
         document.addEventListener('mouseup', () => {
             if (AppState.isDragging) {
                 AppState.isDragging = false;
-                this.handle.style.transition = 'left 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
-                this.progress.style.transition = 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
-                AppState.track.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                this.handle.style.transition = 'left 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                this.progress.style.transition = 'width 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                AppState.track.style.transition = 'transform 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
                 
                 AppState.slides.forEach(slide => {
-                    slide.style.transition = 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                    slide.style.transition = 'all 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
                 });
                 
                 updateCarousel();
