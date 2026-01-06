@@ -1,0 +1,196 @@
+/* ===================================
+   LAYOUT.CSS - Core Layout & Structure
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', serif;
+    overflow-x: hidden;
+    background: #000;
+    cursor: auto;
+    transition: cursor 0.2s;
+}
+
+body.hide-cursor {
+    cursor: none;
+}
+
+/* Header Navigation */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: transparent;
+    padding: 20px 60px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* KM Logo */
+.logo-container {
+    text-align: center;
+    color: white;
+}
+
+.km-box {
+    position: relative;
+    display: inline-block;
+}
+
+.letters {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 0;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 15px;
+    padding: 8px 12px;
+}
+
+.letters span {
+    display: inline-block;
+}
+
+/* Corner brackets */
+.bracket {
+    position: absolute;
+    border: 3px solid white;
+}
+
+.bracket.top-left {
+    top: 10px;
+    left: 6px;
+    width: 20px;
+    height: 20px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.bracket.bottom-right {
+    bottom: 10px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Vertical divider line */
+.divider {
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 60%;
+    background: white;
+    z-index: 1;
+}
+
+.creative-text {
+    font-size: 13px;
+    letter-spacing: 7px;
+    font-weight: 300;
+    margin-bottom: 3px;
+}
+
+.subtitle {
+    font-size: 6px;
+    letter-spacing: 2px;
+    font-weight: 300;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.subtitle::before,
+.subtitle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 1px;
+    background: white;
+}
+
+.subtitle::before {
+    right: 100%;
+    margin-right: 6px;
+}
+
+.subtitle::after {
+    left: 100%;
+    margin-left: 6px;
+}
+
+/* Header Buttons Container */
+.header-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Box Button (left) - rectangular border only */
+.box-button {
+    width: 50px;
+    height: 30px;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.box-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Carousel Container */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    transition: height 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                margin-top 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Carousel Track */
+.carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .letters {
+        font-size: 32px;
+        gap: 10px;
+    }
+
+    .creative-text {
+        font-size: 10px;
+        letter-spacing: 5px;
+    }
+
+    .subtitle {
+        font-size: 5px;
+    }
+}
