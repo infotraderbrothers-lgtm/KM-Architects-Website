@@ -95,7 +95,7 @@ const Navigation = {
             AppState.isNavigating = true;
             AppState.currentSlide = (AppState.currentSlide + 1) % AppState.totalSlides;
             updateCarousel();
-            setTimeout(() => AppState.isNavigating = false, 1200);
+            setTimeout(() => AppState.isNavigating = false, 1800);
         }
     },
     
@@ -104,7 +104,7 @@ const Navigation = {
             AppState.isNavigating = true;
             AppState.currentSlide = (AppState.currentSlide - 1 + AppState.totalSlides) % AppState.totalSlides;
             updateCarousel();
-            setTimeout(() => AppState.isNavigating = false, 1200);
+            setTimeout(() => AppState.isNavigating = false, 1800);
         }
     }
 };
