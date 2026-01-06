@@ -63,9 +63,12 @@ const Slider = {
         const rect = this.container.querySelector('.slider-bar-wrapper').getBoundingClientRect();
         let x = e.clientX - rect.left;
         
-        // Calculate usable slider range (84% of total width, starting at 8%)
-        const sliderStart = AppState.sliderWidth * 0.08;
-        const sliderEnd = AppState.sliderWidth * 0.92;
+        // Each slide is 15% + 1% margin = 16% total width
+        // First slide center is at 7.5% (half of 15%)
+        // Last slide center is at 92.5% (100% - 7.5%)
+        // So slider range is 7.5% to 92.5% = 85% usable width
+        const sliderStart = AppState.sliderWidth * 0.075;
+        const sliderEnd = AppState.sliderWidth * 0.925;
         const usableWidth = sliderEnd - sliderStart;
         
         // Clamp x to the usable range
@@ -79,10 +82,10 @@ const Slider = {
         const position = (percentage / 100) * (AppState.totalSlides - 1);
         const slideIndex = Math.round(position);
         
-        // Update handle and progress positions (offset by 8%)
-        const visualPercentage = 8 + (percentage * 0.84);
+        // Update handle and progress positions (offset by 7.5%)
+        const visualPercentage = 7.5 + (percentage * 0.85);
         this.handle.style.left = visualPercentage + '%';
-        this.progress.style.width = (visualPercentage - 8) + '%';
+        this.progress.style.width = (visualPercentage - 7.5) + '%';
         
         // Calculate transform based on view mode with smooth scrolling
         if (AppState.isThumbnailView) {
@@ -104,10 +107,10 @@ const Slider = {
     },
     
     updateSlider() {
-        // Map slide position to slider range (8% to 92%)
-        const percentage = (AppState.currentSlide / (AppState.totalSlides - 1)) * 84 + 8;
+        // Map slide position to slider range (7.5% to 92.5%)
+        const percentage = (AppState.currentSlide / (AppState.totalSlides - 1)) * 85 + 7.5;
         this.handle.style.left = percentage + '%';
-        this.progress.style.width = (percentage - 8) + '%';
+        this.progress.style.width = (percentage - 7.5) + '%';
     }
 };
 
