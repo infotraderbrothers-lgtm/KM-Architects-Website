@@ -11,6 +11,7 @@ const rightZone = document.getElementById('rightZone');
 const sliderBarContainer = document.getElementById('sliderBarContainer');
 const sliderHandle = document.getElementById('sliderHandle');
 const sliderProgress = document.getElementById('sliderProgress');
+const slides = document.querySelectorAll('.slide');
 
 let currentSlide = 0;
 const totalSlides = 6;
@@ -22,22 +23,43 @@ let sliderWidth = 0;
 
 const slideNames = ['Home', 'Residential', 'Commercial', 'Interiors', 'Planning', 'About'];
 
-function updateCarousel(animate = true) {
-    if (!animate) {
-        track.style.transition = 'none';
-    } else {
-        track.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
-    }
+function calculateThumbnailOffset() {
+    // Calculate the offset needed to center the current slide
+    // Each slide is 15% width + 1% margins = 16% total
+    const slideWidth = 16;
+    const containerCenter = 50; // 50% of container
+    const slideCenter = 7.5; // Half of 15% slide width
+    
+    // Offset to center current slide: center of container - (position of current slide + half its width)
+    const offset = containerCenter - (currentSlide * slideWidth + slideCenter + 0.5);
+    return offset;
+}
+
+function updateCarousel(animate = true, skipTransform = false) {
+    // Set up transitions
+    const transitionDuration = animate ? '1.2s' : '0s';
+    track.style.transition = animate ? 
+        'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)' : 
+        'none';
+    
+    // Apply transforms for each slide
+    slides.forEach((slide, index) => {
+        slide.style.transition = animate ? 
+            'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)' : 
+            'none';
+    });
     
     // Calculate transform based on view mode
-    if (isThumbnailView) {
-        // In thumbnail view, use continuous scrolling
-        // Slide width is 15% + 1% margins = 16% total
-        const slideWidth = 16;
-        track.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
-    } else {
-        // In full view, slides are 100% width
-        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    if (!skipTransform) {
+        if (isThumbnailView) {
+            // In thumbnail view, center the current slide
+            const slideWidth = 16;
+            const offset = calculateThumbnailOffset();
+            track.style.transform = `translateX(${offset}%)`;
+        } else {
+            // In full view, slides are 100% width
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
     }
     
     // Update active nav item
@@ -53,7 +75,10 @@ function updateCarouselContinuous(position) {
     // For smooth continuous scrolling in thumbnail view
     if (isThumbnailView) {
         const slideWidth = 16;
-        track.style.transform = `translateX(-${position * slideWidth}%)`;
+        const containerCenter = 50;
+        const slideCenter = 7.5;
+        const offset = containerCenter - (position * slideWidth + slideCenter + 0.5);
+        track.style.transform = `translateX(${offset}%)`;
     }
 }
 
@@ -98,37 +123,66 @@ boxButton.addEventListener('click', () => {
     isThumbnailView = !isThumbnailView;
     
     if (isThumbnailView) {
-        // Step 1: Start fading out content immediately
-        document.querySelectorAll('.slide-content').forEach(content => {
-            content.style.transition = 'opacity 0.5s ease-out';
-            content.style.opacity = '0';
+        // ENTERING THUMBNAIL VIEW
+        
+        // Step 1: Fade out content immediately (0.5s)
+        slides.forEach(slide => {
+            const content = slide.querySelector('.slide-content');
+            if (content) {
+                content.style.transition = 'opacity 0.5s ease-out';
+                content.style.opacity = '0';
+            }
         });
         
-        // Step 2: After content fades, apply thumbnail class and transformations
+        // Step 2: After content fades (0.5s), apply thumbnail transformations
         setTimeout(() => {
+            // Add thumbnail view class
             document.body.classList.add('thumbnail-view');
+            
+            // Force a reflow to ensure the class is applied
+            void document.body.offsetHeight;
+            
+            // Update carousel with smooth transform
             updateCarousel(true);
             
-            // Initialize slider width after transition completes
+            // Step 3: Show labels after everything settles (1.2s transition + 0.3s delay)
             setTimeout(() => {
+                document.body.classList.add('labels-visible');
+                
+                // Initialize slider width
                 sliderWidth = sliderBarContainer.querySelector('.slider-bar-wrapper').offsetWidth;
-            }, 1200);
+            }, 1500);
+            
         }, 500);
         
     } else {
-        // Step 1: Remove thumbnail view class to start transition back
-        document.body.classList.remove('thumbnail-view');
+        // EXITING THUMBNAIL VIEW
         
-        // Step 2: Update carousel position smoothly
-        updateCarousel(true);
+        // Step 1: Remove labels class
+        document.body.classList.remove('labels-visible');
         
-        // Step 3: Fade content back in after carousel expands
+        // Step 2: Start transition back to full view
         setTimeout(() => {
-            document.querySelectorAll('.slide-content').forEach(content => {
-                content.style.transition = 'opacity 0.5s ease-in';
-                content.style.opacity = '1';
-            });
-        }, 700);
+            document.body.classList.remove('thumbnail-view');
+            
+            // Force a reflow
+            void document.body.offsetHeight;
+            
+            // Update carousel position smoothly
+            updateCarousel(true);
+            
+            // Step 3: Fade content back in after slides expand (1.2s + 0.2s)
+            setTimeout(() => {
+                slides.forEach(slide => {
+                    const content = slide.querySelector('.slide-content');
+                    if (content) {
+                        content.style.transition = 'opacity 0.5s ease-in';
+                        content.style.opacity = '1';
+                    }
+                });
+            }, 1400);
+            
+        }, 100);
     }
 });
 
@@ -148,6 +202,11 @@ sliderHandle.addEventListener('mousedown', (e) => {
     sliderHandle.style.transition = 'none';
     sliderProgress.style.transition = 'none';
     track.style.transition = 'none';
+    
+    slides.forEach(slide => {
+        slide.style.transition = 'none';
+    });
+    
     e.preventDefault();
 });
 
@@ -168,8 +227,11 @@ document.addEventListener('mousemove', (e) => {
         
         // Calculate transform based on view mode with smooth scrolling
         if (isThumbnailView) {
-            const slideWidth = 16; // percentage (15% slide + 1% margins)
-            track.style.transform = `translateX(-${position * slideWidth}%)`;
+            const slideWidth = 16;
+            const containerCenter = 50;
+            const slideCenter = 7.5;
+            const offset = containerCenter - (position * slideWidth + slideCenter + 0.5);
+            track.style.transform = `translateX(${offset}%)`;
         } else {
             track.style.transform = `translateX(-${slideIndex * 100}%)`;
         }
@@ -189,6 +251,11 @@ document.addEventListener('mouseup', () => {
         sliderHandle.style.transition = 'left 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
         sliderProgress.style.transition = 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
         track.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        slides.forEach(slide => {
+            slide.style.transition = 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+        
         updateCarousel();
     }
 });
@@ -259,5 +326,5 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Initialize slider
-updateSlider();
+// Initialize
+updateCarousel(false);
