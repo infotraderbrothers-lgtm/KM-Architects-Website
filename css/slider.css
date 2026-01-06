@@ -1,7 +1,6 @@
 /* ===================================
    SLIDER.CSS - Bottom Slider Bar
    =================================== */
-
 /* Slider Bar Navigation */
 .slider-bar-container {
     position: fixed;
@@ -18,13 +17,11 @@
                 visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 body.thumbnail-view .slider-bar-container {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
-
 .slider-bar-wrapper {
     position: relative;
     width: 100%;
@@ -32,43 +29,40 @@ body.thumbnail-view .slider-bar-container {
     display: flex;
     align-items: center;
 }
-
 .slider-track {
     position: absolute;
-    width: 100%;
+    width: calc(100% - 16%);
     height: 1px;
     background: rgba(255, 255, 255, 0.4);
     top: 50%;
+    left: 8%;
     transform: translateY(-50%);
 }
-
 .slider-progress {
     position: absolute;
     height: 1px;
     background: white;
     top: 50%;
     transform: translateY(-50%);
-    left: 0;
+    left: 8%;
     pointer-events: none;
     transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .slider-handle {
     position: absolute;
     width: 80px;
     height: 4px;
     background: white;
     top: 50%;
+    left: 8%;
     transform: translate(-50%, -50%);
     cursor: grab;
     border-radius: 0;
     transition: left 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .slider-handle:active {
     cursor: grabbing;
 }
-
 .slider-handle:hover {
     background: rgba(255, 255, 255, 0.9);
 }
