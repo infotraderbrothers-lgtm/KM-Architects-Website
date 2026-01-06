@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KM Architects | Architectural Services</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Arrows -->
+    <div class="click-zone left" id="leftZone"></div>
+    <div class="click-zone right" id="rightZone"></div>
+    <div class="nav-arrow left" id="leftArrow">
+        <svg viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    </div>
+    <div class="nav-arrow right" id="rightArrow">
+        <svg viewBox="0 0 24 24">
+            <path d="M9 18l6-6-6-6"/>
+        </svg>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="km-box">
+                    <div class="bracket top-left"></div>
+                    <div class="bracket bottom-right"></div>
+                    <div class="divider"></div>
+                    <div class="letters">
+                        <span>K</span>
+                        <span>M</span>
+                    </div>
+                </div>
+                <div class="creative-text">ARCHITECTS</div>
+                <div class="subtitle">ARCHITECTURAL SERVICES</div>
+            </div>
+            <div class="header-buttons">
+                <button class="box-button" id="boxButton"></button>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Slide Navigation Panel -->
+    <div class="slide-nav-panel" id="slideNavPanel">
+        <div class="slide-nav-item active" data-slide="0">Home</div>
+        <div class="slide-nav-item" data-slide="1">Residential Design</div>
+        <div class="slide-nav-item" data-slide="2">Commercial Design</div>
+        <div class="slide-nav-item" data-slide="3">Interior Design</div>
+        <div class="slide-nav-item" data-slide="4">Planning Services</div>
+        <div class="slide-nav-item" data-slide="5">About</div>
+    </div>
+
+    <!-- Slider Bar -->
+    <div class="slider-bar-container" id="sliderBarContainer">
+        <div class="slider-bar-wrapper">
+            <div class="slider-track"></div>
+            <div class="slider-progress" id="sliderProgress"></div>
+            <div class="slider-handle" id="sliderHandle"></div>
+        </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-track" id="carouselTrack">
+            <!-- Slide 1: Home -->
+            <div class="slide slide-1" data-label="DESIGN MATTERS">
+                <div class="slide-content">
+                    <div class="slide-category">Design Matters</div>
+                    <h1 class="slide-title">Architecture and Design Studio</h1>
+                    <p class="slide-description">KM Architects is an award winning architectural and interior design studio specializing in residential and commercial projects.</p>
+                    <a href="#" class="slide-button">Discover More</a>
+                </div>
+            </div>
+
+            <!-- Slide 2: Residential Architecture -->
+            <div class="slide slide-2" data-label="ARCHITECTURAL DESIGN">
+                <div class="slide-content">
+                    <div class="slide-category">Architectural Design</div>
+                    <h1 class="slide-title">Residential</h1>
+                    <p class="slide-description">The most important material with which we design, is light. We create spaces that harmonize with their environment and enhance daily living.</p>
+                    <a href="#" class="slide-button">View Projects</a>
+                </div>
+            </div>
+
+            <!-- Slide 3: Commercial Architecture -->
+            <div class="slide slide-3" data-label="ARCHITECTURAL DESIGN">
+                <div class="slide-content">
+                    <div class="slide-category">Architectural Design</div>
+                    <h1 class="slide-title">Commercial</h1>
+                    <p class="slide-description">Design is about a way of living, be it at home, in the workplace, relaxing, or entertaining. It is our duty as designers to enhance social interaction through good design.</p>
+                    <a href="#" class="slide-button">View Projects</a>
+                </div>
+            </div>
+
+            <!-- Slide 4: Interior Design -->
+            <div class="slide slide-4" data-label="INTERIOR DESIGN">
+                <div class="slide-content">
+                    <div class="slide-category">Interior Design</div>
+                    <h1 class="slide-title">Residential Interiors</h1>
+                    <p class="slide-description">We aspire to create an interior experience that is both memorable, and timeless. Every detail is carefully considered to reflect your unique vision.</p>
+                    <a href="#" class="slide-button">View Projects</a>
+                </div>
+            </div>
+
+            <!-- Slide 5: Planning -->
+            <div class="slide slide-5" data-label="PLANNING APPLICATIONS">
+                <div class="slide-content">
+                    <div class="slide-category">Planning Applications</div>
+                    <h1 class="slide-title">Expert Planning Services</h1>
+                    <p class="slide-description">Navigating planning regulations with expertise and precision. We guide your project from concept through to approval.</p>
+                    <a href="#" class="slide-button">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Slide 6: About -->
+            <div class="slide slide-6" data-label="ABOUT">
+                <div class="slide-content">
+                    <div class="slide-category">About</div>
+                    <h1 class="slide-title">KM Architects</h1>
+                    <p class="slide-description">At KM Architects we believe that 'Design Matters'. We are committed to creating exceptional spaces that inspire and endure.</p>
+                    <a href="#" class="slide-button">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
