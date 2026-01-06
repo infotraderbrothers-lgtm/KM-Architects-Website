@@ -1,0 +1,93 @@
+/* ===================================
+   MENU.CSS - Navigation Menu Panel
+   =================================== */
+
+/* Menu Toggle Button (right - three lines, no border) */
+.menu-toggle {
+    width: 50px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    width: 100%;
+    background: white;
+    transition: all 0.3s;
+}
+
+.menu-toggle span:first-child,
+.menu-toggle span:last-child {
+    height: 3px;
+}
+
+.menu-toggle span:nth-child(2) {
+    height: 2px;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Slide Navigation Panel */
+.slide-nav-panel {
+    position: fixed;
+    top: 80px;
+    right: 60px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    border: 2px solid white;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 300px;
+}
+
+.slide-nav-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.slide-nav-item {
+    color: white;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.slide-nav-item:last-child {
+    border-bottom: none;
+}
+
+.slide-nav-item:hover {
+    padding-left: 10px;
+    opacity: 0.6;
+}
+
+.slide-nav-item.active {
+    padding-left: 10px;
+    opacity: 0.6;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .slide-nav-panel {
+        right: 20px;
+    }
+}
