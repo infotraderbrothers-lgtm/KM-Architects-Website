@@ -1,7 +1,6 @@
 /* ===================================
    SLIDER.JS - Bottom Slider Bar Functionality
    =================================== */
-
 const Slider = {
     container: null,
     handle: null,
@@ -63,16 +62,27 @@ const Slider = {
     handleDrag(e) {
         const rect = this.container.querySelector('.slider-bar-wrapper').getBoundingClientRect();
         let x = e.clientX - rect.left;
-        x = Math.max(0, Math.min(x, AppState.sliderWidth));
         
-        const percentage = (x / AppState.sliderWidth) * 100;
+        // Calculate usable slider range (84% of total width, starting at 8%)
+        const sliderStart = AppState.sliderWidth * 0.08;
+        const sliderEnd = AppState.sliderWidth * 0.92;
+        const usableWidth = sliderEnd - sliderStart;
+        
+        // Clamp x to the usable range
+        x = Math.max(sliderStart, Math.min(x, sliderEnd));
+        
+        // Calculate percentage within the usable range
+        const relativeX = x - sliderStart;
+        const percentage = (relativeX / usableWidth) * 100;
         
         // For smooth continuous scrolling, use decimal position
         const position = (percentage / 100) * (AppState.totalSlides - 1);
         const slideIndex = Math.round(position);
         
-        this.handle.style.left = percentage + '%';
-        this.progress.style.width = percentage + '%';
+        // Update handle and progress positions (offset by 8%)
+        const visualPercentage = 8 + (percentage * 0.84);
+        this.handle.style.left = visualPercentage + '%';
+        this.progress.style.width = (visualPercentage - 8) + '%';
         
         // Calculate transform based on view mode with smooth scrolling
         if (AppState.isThumbnailView) {
@@ -94,9 +104,10 @@ const Slider = {
     },
     
     updateSlider() {
-        const percentage = (AppState.currentSlide / (AppState.totalSlides - 1)) * 100;
+        // Map slide position to slider range (8% to 92%)
+        const percentage = (AppState.currentSlide / (AppState.totalSlides - 1)) * 84 + 8;
         this.handle.style.left = percentage + '%';
-        this.progress.style.width = percentage + '%';
+        this.progress.style.width = (percentage - 8) + '%';
     }
 };
 
