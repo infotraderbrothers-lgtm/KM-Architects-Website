@@ -1,7 +1,6 @@
 /* ===================================
    THUMBNAILVIEW.JS - Thumbnail Mode Logic & Transitions
    =================================== */
-
 // Thumbnail view toggle functionality
 const ThumbnailView = {
     init() {
@@ -20,18 +19,18 @@ const ThumbnailView = {
     },
     
     enter() {
-        // ENTERING THUMBNAIL VIEW
+        // ENTERING THUMBNAIL VIEW - Smooth Shrink Animation
         
-        // Step 1: Fade out content immediately (0.5s)
+        // Step 1: Fade out content smoothly (0.8s)
         AppState.slides.forEach(slide => {
             const content = slide.querySelector('.slide-content');
             if (content) {
-                content.style.transition = 'opacity 0.5s ease-out';
+                content.style.transition = 'opacity 0.8s ease-out';
                 content.style.opacity = '0';
             }
         });
         
-        // Step 2: After content fades (0.5s), apply thumbnail transformations
+        // Step 2: After content fades (0.8s), apply thumbnail transformations
         setTimeout(() => {
             // Add thumbnail view class
             document.body.classList.add('thumbnail-view');
@@ -39,23 +38,23 @@ const ThumbnailView = {
             // Force a reflow to ensure the class is applied
             void document.body.offsetHeight;
             
-            // Update carousel with smooth transform
+            // Update carousel with smooth transform (1.8s transition)
             updateCarousel(true);
             
-            // Step 3: Show labels after everything settles (1.2s transition + 0.3s delay)
+            // Step 3: Show labels after everything settles (1.8s transition + 0.5s delay)
             setTimeout(() => {
                 document.body.classList.add('labels-visible');
                 
                 // Initialize slider width
                 const sliderBarContainer = document.getElementById('sliderBarContainer');
                 AppState.sliderWidth = sliderBarContainer.querySelector('.slider-bar-wrapper').offsetWidth;
-            }, 1500);
+            }, 2300);
             
-        }, 500);
+        }, 800);
     },
     
     exit() {
-        // EXITING THUMBNAIL VIEW
+        // EXITING THUMBNAIL VIEW - Smooth Expand Animation
         
         // Step 1: Remove labels class
         document.body.classList.remove('labels-visible');
@@ -67,24 +66,23 @@ const ThumbnailView = {
             // Force a reflow
             void document.body.offsetHeight;
             
-            // Update carousel position smoothly
+            // Update carousel position smoothly (1.8s transition)
             updateCarousel(true);
             
-            // Step 3: Fade content back in after slides expand (1.2s + 0.2s)
+            // Step 3: Fade content back in after slides expand (1.8s + 0.3s)
             setTimeout(() => {
                 AppState.slides.forEach(slide => {
                     const content = slide.querySelector('.slide-content');
                     if (content) {
-                        content.style.transition = 'opacity 0.5s ease-in';
+                        content.style.transition = 'opacity 0.8s ease-in';
                         content.style.opacity = '1';
                     }
                 });
-            }, 1400);
+            }, 2100);
             
-        }, 100);
+        }, 200);
     }
 };
-
 // Initialize thumbnail view on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     ThumbnailView.init();
