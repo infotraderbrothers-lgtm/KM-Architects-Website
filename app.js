@@ -98,7 +98,7 @@ function init() {
     const loadingScreen = document.getElementById('loadingScreen');
     const container = document.querySelector('.container');
     
-    // Logo fades in (1s) + shines (2s) = 3s total, then fade out
+    // Logo fades in (1s) + shines (4s) = 5s total, then fade out
     setTimeout(() => {
         loadingScreen.classList.add('fade-out');
         
@@ -115,7 +115,7 @@ function init() {
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
         }, 1000); // Wait for fade out to complete
-    }, 3000); // Logo animation duration
+    }, 5000); // Logo animation duration (1s fade in + 4s shine)
 }
 
 // Start the application when DOM is ready
