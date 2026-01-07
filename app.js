@@ -98,7 +98,7 @@ function init() {
     const loadingScreen = document.getElementById('loadingScreen');
     const container = document.querySelector('.container');
     
-    // Logo fades in (1s) + atom fade in L->R (2s) + wait (1s) + atom fade out R->L (2s) = 6s total, then fade out
+    // Logo fades in L->R (2s) + wait (1s) + fades out R->L (2s) = 5s total, then fade out loading screen
     setTimeout(() => {
         loadingScreen.classList.add('fade-out');
         
@@ -115,7 +115,7 @@ function init() {
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
         }, 1000); // Wait for fade out to complete
-    }, 6000); // Logo animation duration (1s fade in + 2s atom in + 1s wait + 2s atom out)
+    }, 5000); // Logo animation duration (2s fade in + 1s wait + 2s fade out)
 }
 
 // Start the application when DOM is ready
