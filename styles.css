@@ -33,8 +33,8 @@ body {
     display: inline-block;
     position: relative;
     opacity: 0;
-    transform: scale(2);
-    animation: logoFadeIn 1s ease forwards, logoShine 4s ease 1s;
+    transform: scale(4);
+    animation: logoFadeIn 1s ease forwards, atomFadeInLTR 2s ease 1s forwards, atomFadeOutRTL 2s ease 4s forwards;
 }
 
 @keyframes logoFadeIn {
@@ -43,21 +43,26 @@ body {
     }
 }
 
-@keyframes logoShine {
+@keyframes atomFadeInLTR {
     0% {
-        filter: brightness(1);
-    }
-    20% {
-        filter: brightness(1.5) drop-shadow(0 0 15px rgba(0, 0, 0, 0.2));
-    }
-    50% {
-        filter: brightness(3) drop-shadow(0 0 40px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 80px rgba(0, 0, 0, 0.2));
-    }
-    80% {
-        filter: brightness(1.5) drop-shadow(0 0 15px rgba(0, 0, 0, 0.2));
+        clip-path: inset(0 100% 0 0);
+        filter: brightness(1) drop-shadow(-20px 0 30px rgba(0, 150, 255, 0.8)) drop-shadow(-40px 0 50px rgba(0, 150, 255, 0.4));
     }
     100% {
-        filter: brightness(1);
+        clip-path: inset(0 0 0 0);
+        filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 150, 255, 0.3));
+    }
+}
+
+@keyframes atomFadeOutRTL {
+    0% {
+        clip-path: inset(0 0 0 0);
+        filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 150, 255, 0.3));
+    }
+    100% {
+        clip-path: inset(0 0 0 100%);
+        filter: brightness(1) drop-shadow(20px 0 30px rgba(0, 150, 255, 0.8)) drop-shadow(40px 0 50px rgba(0, 150, 255, 0.4));
+        opacity: 0;
     }
 }
 
