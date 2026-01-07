@@ -32,37 +32,26 @@ body {
 .loading-logo {
     display: inline-block;
     position: relative;
-    opacity: 0;
+    opacity: 1;
     transform: scale(4);
-    animation: logoFadeIn 1s ease forwards, atomFadeInLTR 2s ease 1s forwards, atomFadeOutRTL 2s ease 4s forwards;
+    animation: revealLTR 2s ease forwards, fadeOutRTL 2s ease 3s forwards;
 }
 
-@keyframes logoFadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes atomFadeInLTR {
+@keyframes revealLTR {
     0% {
         clip-path: inset(0 100% 0 0);
-        filter: brightness(1) drop-shadow(-20px 0 30px rgba(0, 150, 255, 0.8)) drop-shadow(-40px 0 50px rgba(0, 150, 255, 0.4));
     }
     100% {
         clip-path: inset(0 0 0 0);
-        filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 150, 255, 0.3));
     }
 }
 
-@keyframes atomFadeOutRTL {
+@keyframes fadeOutRTL {
     0% {
         clip-path: inset(0 0 0 0);
-        filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 150, 255, 0.3));
     }
     100% {
         clip-path: inset(0 0 0 100%);
-        filter: brightness(1) drop-shadow(20px 0 30px rgba(0, 150, 255, 0.8)) drop-shadow(40px 0 50px rgba(0, 150, 255, 0.4));
-        opacity: 0;
     }
 }
 
