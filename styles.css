@@ -11,6 +11,141 @@ body {
     cursor: default;
 }
 
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-logo {
+    display: inline-block;
+    position: relative;
+    opacity: 0;
+    animation: logoFadeIn 1s ease forwards, logoShine 2s ease 1s;
+}
+
+@keyframes logoFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes logoShine {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(2.5) drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+    }
+}
+
+.loading-logo-box {
+    position: relative;
+    display: inline-block;
+}
+
+.loading-logo-corner-tl {
+    position: absolute;
+    top: 5px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid black;
+    border-right: none;
+    border-bottom: none;
+}
+
+.loading-logo-corner-br {
+    position: absolute;
+    bottom: 5px;
+    right: 3px;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid black;
+    border-left: none;
+    border-top: none;
+}
+
+.loading-logo-divider {
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 60%;
+    background: black;
+    z-index: 1;
+}
+
+.loading-logo-letters {
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 0;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 12px;
+    padding: 6px 10px;
+    font-family: 'Times New Roman', serif;
+}
+
+.loading-logo-letter {
+    color: black;
+}
+
+.loading-logo-subtitle {
+    color: black;
+    font-size: 10.5px;
+    font-weight: 300;
+    letter-spacing: 5.5px;
+    margin-bottom: 2.5px;
+    text-align: center;
+    font-family: 'Times New Roman', serif;
+}
+
+.loading-logo-tagline {
+    color: black;
+    font-size: 5px;
+    font-weight: 300;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+    font-family: 'Times New Roman', serif;
+}
+
+.loading-logo-tagline-line-left {
+    position: absolute;
+    right: 100%;
+    margin-right: 5px;
+    top: 50%;
+    width: 25px;
+    height: 0.5px;
+    background: black;
+}
+
+.loading-logo-tagline-line-right {
+    position: absolute;
+    left: 100%;
+    margin-left: 5px;
+    top: 50%;
+    width: 25px;
+    height: 0.5px;
+    background: black;
+}
+
 body.cursor-left,
 body.cursor-right {
     cursor: none !important;
@@ -44,6 +179,12 @@ body.cursor-right * {
     position: fixed;
     inset: 0;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.container.visible {
+    opacity: 1;
 }
 
 /* Header */
