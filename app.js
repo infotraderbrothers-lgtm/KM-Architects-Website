@@ -94,13 +94,28 @@ function handleToggle() {
 }
 
 function init() {
-    updateContent();
-    createCarouselCards();
-    initCarousel();
-    initNavigation();
+    // Wait for logo animation to complete before showing main site
+    const loadingScreen = document.getElementById('loadingScreen');
+    const container = document.querySelector('.container');
     
-    const toggleBtn = document.getElementById('toggleBtn');
-    toggleBtn.addEventListener('click', handleToggle);
+    // Logo fades in (1s) + shines (2s) = 3s total, then fade out
+    setTimeout(() => {
+        loadingScreen.classList.add('fade-out');
+        
+        // After loading screen fades out, show main container
+        setTimeout(() => {
+            container.classList.add('visible');
+            
+            // Initialize main application
+            updateContent();
+            createCarouselCards();
+            initCarousel();
+            initNavigation();
+            
+            const toggleBtn = document.getElementById('toggleBtn');
+            toggleBtn.addEventListener('click', handleToggle);
+        }, 1000); // Wait for fade out to complete
+    }, 3000); // Logo animation duration
 }
 
 // Start the application when DOM is ready
