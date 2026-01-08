@@ -14,7 +14,7 @@ function updateContent() {
 }
 
 function handleToggle() {
-    if (window.transitioning) return;
+    if (window.transitioning || window.menuOpen) return;
     
     window.transitioning = true;
     const toggleBtn = document.getElementById('toggleBtn');
@@ -101,6 +101,7 @@ function init() {
             createCarouselCards();
             initCarousel();
             initNavigation();
+            initMenu();
             
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
