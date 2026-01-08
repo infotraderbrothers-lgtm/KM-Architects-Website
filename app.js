@@ -10,7 +10,7 @@ function updateContent() {
     
     mainTitle.textContent = pages[window.activeIndex].description;
     actionBtnText.textContent = pages[window.activeIndex].buttonText;
-    mainImage.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${pages[window.activeIndex].image}')`;
+    mainImage.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + pages[window.activeIndex].image + '\')';
 }
 
 function handleToggle() {
@@ -28,7 +28,6 @@ function handleToggle() {
     toggleBtn.disabled = true;
 
     if (!window.isCarousel) {
-        // SHRINK SEQUENCE
         content.classList.add('fade-out');
         header.classList.add('fade-out');
         
@@ -36,7 +35,6 @@ function handleToggle() {
             mainImageContainer.classList.add('shrunk');
             
             setTimeout(function() {
-                // Set carousel rotation to match current activeIndex before showing
                 const anglePerCard = 360 / pages.length;
                 rotation = window.activeIndex * anglePerCard;
                 targetRotation = rotation;
@@ -64,7 +62,6 @@ function handleToggle() {
             }, 2000);
         }, 1000);
     } else {
-        // GROW SEQUENCE
         const cards = carouselStage.children;
         for (let i = 0; i < cards.length; i++) {
             cards[i].classList.remove('visible');
@@ -94,19 +91,15 @@ function handleToggle() {
 }
 
 function init() {
-    // Wait for logo animation to complete before showing main site
     const loadingScreen = document.getElementById('loadingScreen');
     const container = document.querySelector('.container');
     
-    // Atom build in (3s) + wait (1s) + atom fade out (3s) = 7s total, then fade out loading screen
     setTimeout(function() {
         loadingScreen.classList.add('fade-out');
         
-        // After loading screen fades out, show main container
         setTimeout(function() {
             container.classList.add('visible');
             
-            // Initialize main application
             updateContent();
             createCarouselCards();
             initCarousel();
@@ -115,10 +108,9 @@ function init() {
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
         }, 1000);
-    }, 7000);
+    }, 4000);
 }
 
-// Start the application when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
