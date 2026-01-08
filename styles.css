@@ -22,7 +22,7 @@ body {
     justify-content: center;
     z-index: 10001;
     opacity: 1;
-    animation: screenFadeOut 0.6s ease-out 3s forwards;
+    animation: screenFadeOut 1s ease-out 4s forwards;
 }
 
 .loading-logo {
@@ -48,7 +48,7 @@ body {
     border-right: none;
     border-bottom: none;
     opacity: 0;
-    animation: letterFade 1.2s ease-out 0.3s forwards;
+    animation: letterFade 1.5s ease-out 0.4s forwards;
 }
 
 .loading-logo-corner-br {
@@ -61,20 +61,20 @@ body {
     border-left: none;
     border-top: none;
     opacity: 0;
-    animation: letterFade 1.2s ease-out 0.3s forwards;
+    animation: letterFade 1.5s ease-out 0.4s forwards;
 }
 
 .loading-logo-divider {
     position: absolute;
     top: 50%;
-    left: 47%;
+    left: 50%;
     transform: translate(-50%, -50%) scale(1);
     width: 1px;
     height: 60%;
     background: white;
     z-index: 1;
     opacity: 0;
-    animation: letterFade 1.2s ease-out 0.3s forwards;
+    animation: letterFade 1.5s ease-out 0.4s forwards;
 }
 
 .loading-logo-letters {
@@ -92,7 +92,7 @@ body {
 .loading-logo-letter {
     color: white;
     opacity: 0;
-    animation: letterFade 1.2s ease-out 0.3s forwards;
+    animation: letterFade 1.5s ease-out 0.4s forwards;
 }
 
 .loading-logo-line {
@@ -103,7 +103,7 @@ body {
     height: 1px;
     background: linear-gradient(90deg, transparent, #ffffff, transparent);
     width: 0;
-    animation: lineExpand 1s ease-out 0.8s forwards;
+    animation: lineExpand 1.2s ease-out 1.2s forwards;
 }
 
 .loading-logo-name {
@@ -115,7 +115,7 @@ body {
     text-align: center;
     font-family: 'Times New Roman', serif;
     opacity: 0;
-    animation: textFade 0.8s ease-out 1.5s forwards;
+    animation: textFade 1s ease-out 2.2s forwards;
 }
 
 @keyframes letterFade {
@@ -194,7 +194,7 @@ body.cursor-right * {
     inset: 0;
     overflow: hidden;
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: opacity 1.5s ease;
 }
 
 .container.visible {
@@ -261,7 +261,7 @@ body.cursor-right * {
 .logo-divider {
     position: absolute;
     top: 50%;
-    left: 47%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 1px;
     height: 60%;
