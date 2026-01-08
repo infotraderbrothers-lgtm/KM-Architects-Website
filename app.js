@@ -104,8 +104,8 @@ function init() {
             
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
-        }, 300);
-    }, 3600);
+        }, 500);
+    }, 5000);
 }
 
 if (document.readyState === 'loading') {
