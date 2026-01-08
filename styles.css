@@ -15,18 +15,14 @@ body {
 .loading-screen {
     position: fixed;
     inset: 0;
-    background: #fff;
+    background: #0a0a0a;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 10001;
     opacity: 1;
-    transition: opacity 1s ease;
-}
-
-.loading-screen.fade-out {
-    opacity: 0;
-    pointer-events: none;
+    animation: screenFadeOut 0.6s ease-out 3s forwards;
 }
 
 .loading-logo {
@@ -34,8 +30,7 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
-    opacity: 1;
-    transform: scale(2.5);
+    margin-bottom: 40px;
 }
 
 .loading-logo-box {
@@ -49,10 +44,11 @@ body {
     left: 3px;
     width: 10px;
     height: 10px;
-    border: 1.5px solid black;
+    border: 1.5px solid white;
     border-right: none;
     border-bottom: none;
-    animation: smoothFadeInOut 5s ease-in-out forwards;
+    opacity: 0;
+    animation: letterFade 1.2s ease-out 0.3s forwards;
 }
 
 .loading-logo-corner-br {
@@ -61,10 +57,11 @@ body {
     right: 3px;
     width: 10px;
     height: 10px;
-    border: 1.5px solid black;
+    border: 1.5px solid white;
     border-left: none;
     border-top: none;
-    animation: smoothFadeInOut 5s ease-in-out forwards;
+    opacity: 0;
+    animation: letterFade 1.2s ease-out 0.3s forwards;
 }
 
 .loading-logo-divider {
@@ -74,51 +71,92 @@ body {
     transform: translate(-50%, -50%) scale(1);
     width: 1px;
     height: 60%;
-    background: black;
+    background: white;
     z-index: 1;
-    animation: smoothFadeInOut 5s ease-in-out forwards;
+    opacity: 0;
+    animation: letterFade 1.2s ease-out 0.3s forwards;
 }
 
 .loading-logo-letters {
-    font-size: 40px;
-    font-weight: bold;
-    letter-spacing: 0;
+    font-size: 72px;
+    font-weight: 200;
+    letter-spacing: 8px;
     position: relative;
     z-index: 2;
     display: flex;
-    gap: 12px;
+    gap: 20px;
     padding: 6px 10px;
     font-family: 'Times New Roman', serif;
 }
 
 .loading-logo-letter {
-    color: black;
-    animation: smoothFadeInOut 5s ease-in-out forwards;
+    color: white;
+    opacity: 0;
+    animation: letterFade 1.2s ease-out 0.3s forwards;
+}
+
+.loading-logo-line {
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ffffff, transparent);
+    width: 0;
+    animation: lineExpand 1s ease-out 0.8s forwards;
 }
 
 .loading-logo-name {
-    color: black;
-    font-size: 12px;
+    color: white;
+    font-size: 11px;
     font-weight: 300;
-    letter-spacing: 8px;
-    margin-top: 10px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
     text-align: center;
     font-family: 'Times New Roman', serif;
-    animation: smoothFadeInOut 5s ease-in-out forwards;
+    opacity: 0;
+    animation: textFade 0.8s ease-out 1.5s forwards;
 }
 
-@keyframes smoothFadeInOut {
+@keyframes letterFade {
     0% {
         opacity: 0;
+        transform: translateY(20px);
     }
-    30% {
+    100% {
         opacity: 1;
+        transform: translateY(0);
     }
-    70% {
+}
+
+@keyframes lineExpand {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes textFade {
+    0% {
+        opacity: 0;
+        letter-spacing: 12px;
+    }
+    100% {
+        opacity: 0.7;
+        letter-spacing: 6px;
+    }
+}
+
+@keyframes screenFadeOut {
+    0% {
         opacity: 1;
     }
     100% {
         opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
     }
 }
 
