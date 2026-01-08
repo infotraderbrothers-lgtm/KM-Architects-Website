@@ -21,7 +21,7 @@ body {
     justify-content: center;
     z-index: 10001;
     opacity: 1;
-    animation: screenFadeOut 1s ease-out 6s forwards;
+    animation: screenFadeOut 2s ease-out 5s forwards;
 }
 
 .loading-logo {
@@ -115,6 +115,7 @@ body {
     filter: brightness(2.5);
     font-size: 11px;
     letter-spacing: 3.2px;
+    text-transform: uppercase;
     margin-top: 4px;
     margin-bottom: 2.7px;
     margin-left: 1px;
