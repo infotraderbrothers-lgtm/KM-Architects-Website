@@ -417,15 +417,15 @@ body.cursor-right * {
 }
 
 .menu-btn {
-    width: 3rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 1rem;
     background: transparent;
     border: none;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0.2rem 0;
+    padding: 0.15rem 0;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -454,7 +454,7 @@ body.cursor-right * {
 }
 
 .menu-btn.active .menu-btn-line-top {
-    transform: translateY(0.45rem) rotate(45deg);
+    transform: translateY(0.3rem) rotate(45deg);
 }
 
 .menu-btn.active .menu-btn-line-middle {
@@ -462,7 +462,7 @@ body.cursor-right * {
 }
 
 .menu-btn.active .menu-btn-line-bottom {
-    transform: translateY(-0.45rem) rotate(-45deg);
+    transform: translateY(-0.3rem) rotate(-45deg);
 }
 
 .menu-overlay {
@@ -485,7 +485,7 @@ body.cursor-right * {
 .menu-nav {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
