@@ -95,11 +95,10 @@ function init() {
     const container = document.querySelector('.container');
     
     setTimeout(function() {
+        container.classList.add('visible');
         loadingScreen.classList.add('fade-out');
         
         setTimeout(function() {
-            container.classList.add('visible');
-            
             updateContent();
             createCarouselCards();
             initCarousel();
@@ -108,7 +107,7 @@ function init() {
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
         }, 1000);
-    }, 4000);
+    }, 5000);
 }
 
 if (document.readyState === 'loading') {
