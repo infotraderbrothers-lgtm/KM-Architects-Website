@@ -52,6 +52,16 @@
         <div class="click-zone left" id="leftZone"></div>
         <div class="click-zone right" id="rightZone"></div>
 
+        <!-- Menu Overlay -->
+        <div class="menu-overlay" id="menuOverlay">
+            <nav class="menu-nav">
+                <button class="menu-item">Services</button>
+                <button class="menu-item">Portfolio</button>
+                <button class="menu-item">About</button>
+                <button class="menu-item">Contact</button>
+            </nav>
+        </div>
+
         <!-- Carousel View (behind everything) -->
         <div class="carousel-view" id="carouselView">
             <div class="carousel-container">
@@ -106,13 +116,21 @@
                     <span class="logo-tagline-line-right"></span>
                 </div>
             </div>
-            <button class="toggle-btn" id="toggleBtn"></button>
+            <div class="header-buttons">
+                <button class="toggle-btn" id="toggleBtn"></button>
+                <button class="menu-btn" id="menuBtn">
+                    <span class="menu-btn-line menu-btn-line-top"></span>
+                    <span class="menu-btn-line menu-btn-line-middle"></span>
+                    <span class="menu-btn-line menu-btn-line-bottom"></span>
+                </button>
+            </div>
         </div>
     </div>
 
     <script src="data.js"></script>
     <script src="carousel.js"></script>
     <script src="navigation.js"></script>
+    <script src="menu.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
