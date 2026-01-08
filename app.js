@@ -32,10 +32,10 @@ function handleToggle() {
         content.classList.add('fade-out');
         header.classList.add('fade-out');
         
-        setTimeout(() => {
+        setTimeout(function() {
             mainImageContainer.classList.add('shrunk');
             
-            setTimeout(() => {
+            setTimeout(function() {
                 // Set carousel rotation to match current activeIndex before showing
                 const anglePerCard = 360 / pages.length;
                 rotation = window.activeIndex * anglePerCard;
@@ -44,17 +44,17 @@ function handleToggle() {
                 
                 carouselView.classList.add('active');
                 
-                setTimeout(() => {
+                setTimeout(function() {
                     mainImageContainer.style.opacity = '0';
                     
                     const cards = carouselStage.children;
-                    for (let card of cards) {
-                        card.classList.add('visible');
+                    for (let i = 0; i < cards.length; i++) {
+                        cards[i].classList.add('visible');
                     }
                     scrollBar.classList.add('visible');
                     updateCarousel();
                     
-                    setTimeout(() => {
+                    setTimeout(function() {
                         header.classList.remove('fade-out');
                         window.isCarousel = true;
                         window.transitioning = false;
@@ -66,21 +66,21 @@ function handleToggle() {
     } else {
         // GROW SEQUENCE
         const cards = carouselStage.children;
-        for (let card of cards) {
-            card.classList.remove('visible');
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].classList.remove('visible');
         }
         scrollBar.classList.remove('visible');
         header.classList.add('fade-out');
         
-        setTimeout(() => {
+        setTimeout(function() {
             updateContent();
             mainImageContainer.style.opacity = '1';
             
-            setTimeout(() => {
+            setTimeout(function() {
                 carouselView.classList.remove('active');
                 mainImageContainer.classList.remove('shrunk');
                 
-                setTimeout(() => {
+                setTimeout(function() {
                     content.classList.remove('fade-out');
                     header.classList.remove('fade-out');
                     
@@ -99,11 +99,11 @@ function init() {
     const container = document.querySelector('.container');
     
     // Logo fades in L->R (2s) + wait (1s) + fades out R->L (2s) = 5s total, then fade out loading screen
-    setTimeout(() => {
+    setTimeout(function() {
         loadingScreen.classList.add('fade-out');
         
         // After loading screen fades out, show main container
-        setTimeout(() => {
+        setTimeout(function() {
             container.classList.add('visible');
             
             // Initialize main application
@@ -114,8 +114,8 @@ function init() {
             
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
-        }, 1000); // Wait for fade out to complete
-    }, 5000); // Logo animation duration (2s fade in + 1s wait + 2s fade out)
+        }, 1000);
+    }, 5000);
 }
 
 // Start the application when DOM is ready
