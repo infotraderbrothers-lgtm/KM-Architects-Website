@@ -91,12 +91,10 @@ function handleToggle() {
 }
 
 function init() {
-    const loadingScreen = document.getElementById('loadingScreen');
     const container = document.querySelector('.container');
     
     setTimeout(function() {
         container.classList.add('visible');
-        loadingScreen.classList.add('fade-out');
         
         setTimeout(function() {
             updateContent();
@@ -106,8 +104,8 @@ function init() {
             
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
-        }, 1000);
-    }, 5000);
+        }, 300);
+    }, 3600);
 }
 
 if (document.readyState === 'loading') {
