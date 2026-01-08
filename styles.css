@@ -11,7 +11,6 @@ body {
     cursor: default;
 }
 
-/* Loading Screen */
 .loading-screen {
     position: fixed;
     inset: 0;
@@ -162,15 +161,14 @@ body {
 
 body.cursor-left,
 body.cursor-right {
-    cursor: none !important;
+    cursor: none;
 }
 
 body.cursor-left *,
 body.cursor-right * {
-    cursor: none !important;
+    cursor: none;
 }
 
-/* Custom Arrow Cursors */
 .custom-cursor {
     position: fixed;
     width: 32px;
@@ -201,7 +199,6 @@ body.cursor-right * {
     opacity: 1;
 }
 
-/* Header */
 .header {
     position: fixed;
     top: 0;
@@ -221,7 +218,6 @@ body.cursor-right * {
     pointer-events: none;
 }
 
-/* Logo */
 .logo {
     display: inline-block;
     position: relative;
@@ -332,7 +328,6 @@ body.cursor-right * {
     filter: brightness(2.5);
 }
 
-/* Toggle Button */
 .toggle-btn {
     width: 3rem;
     height: 1.5rem;
@@ -351,7 +346,6 @@ body.cursor-right * {
     opacity: 0.5;
 }
 
-/* Content */
 .content {
     position: fixed;
     inset: 0;
@@ -439,7 +433,7 @@ body.cursor-right * {
 
 .action-btn,
 .action-btn * {
-    cursor: pointer !important;
+    cursor: pointer;
 }
 
 .action-btn-text {
@@ -464,7 +458,6 @@ body.cursor-right * {
     transform: translateX(0);
 }
 
-/* Main centered image container */
 .main-image-container {
     position: fixed;
     width: 100%;
@@ -534,7 +527,6 @@ body.cursor-right * {
     opacity: 0;
 }
 
-/* Carousel View */
 .carousel-view {
     position: fixed;
     inset: 0;
@@ -553,7 +545,6 @@ body.cursor-right * {
     pointer-events: all;
 }
 
-/* 3D Carousel Container */
 .carousel-container {
     position: relative;
     width: 100%;
@@ -583,14 +574,17 @@ body.cursor-right * {
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     border-radius: 20px;
     opacity: 0;
-    --glow-opacity: 0;
+}
+
+.carousel-card.visible {
+    opacity: 1;
 }
 
 .carousel-card::before {
     content: '';
     position: absolute;
     inset: -40px;
-    background: radial-gradient(ellipse at center, rgba(255, 255, 255, calc(var(--glow-opacity) * 0.4)) 0%, rgba(255, 255, 255, calc(var(--glow-opacity) * 0.2)) 40%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 70%);
     z-index: -1;
     pointer-events: none;
 }
@@ -603,14 +597,10 @@ body.cursor-right * {
     transform: translateX(-50%);
     width: 500px;
     height: 300px;
-    background: radial-gradient(ellipse at top, rgba(255, 255, 255, calc(var(--glow-opacity) * 0.1)) 0%, transparent 60%);
-    opacity: var(--glow-opacity);
+    background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+    opacity: 0.4;
     pointer-events: none;
     z-index: -2;
-}
-
-.carousel-card.visible {
-    opacity: 1;
 }
 
 .carousel-label {
@@ -646,7 +636,6 @@ body.cursor-right * {
     opacity: 0.9;
 }
 
-/* Scroll Bar */
 .scroll-bar {
     position: fixed;
     bottom: 3rem;
@@ -673,7 +662,6 @@ body.cursor-right * {
     background: rgba(255, 255, 255, 0.9);
 }
 
-/* Arrow Navigation */
 .arrow-indicator {
     position: fixed;
     top: 50%;
@@ -688,7 +676,6 @@ body.cursor-right * {
     display: none;
 }
 
-/* Clickable zones */
 .click-zone {
     position: fixed;
     top: 100px;
