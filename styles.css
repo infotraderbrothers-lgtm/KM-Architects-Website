@@ -308,13 +308,13 @@ body.cursor-right * {
 .logo-divider {
     position: absolute;
     top: 50%;
+    left: 47%;
     transform: translate(-50%, -50%);
     width: 1px;
+    height: 60%;
     background: white;
     z-index: 1;
     filter: brightness(2.5);
-    left: 47%;
-    height: 60%;
 }
 
 .logo-letters {
