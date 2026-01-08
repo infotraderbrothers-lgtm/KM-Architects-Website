@@ -417,17 +417,24 @@ body.cursor-right * {
 }
 
 .menu-btn {
-    width: 2rem;
-    height: 1rem;
+    width: 2.8rem;
+    height: 1.35rem;
     background: transparent;
     border: none;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0.15rem 0;
-    transition: all 0.3s ease;
+    padding: 0.18rem 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+}
+
+.menu-btn.active {
+    width: 1.8rem;
+    height: 1.8rem;
+    padding: 0;
+    justify-content: center;
 }
 
 .menu-btn:hover .menu-btn-line {
@@ -453,8 +460,17 @@ body.cursor-right * {
     height: 3px;
 }
 
+.menu-btn.active .menu-btn-line {
+    width: 70%;
+}
+
 .menu-btn.active .menu-btn-line-top {
-    transform: translateY(0.3rem) rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -35%;
+    margin-top: -1.5px;
 }
 
 .menu-btn.active .menu-btn-line-middle {
@@ -462,7 +478,12 @@ body.cursor-right * {
 }
 
 .menu-btn.active .menu-btn-line-bottom {
-    transform: translateY(-0.3rem) rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -35%;
+    margin-top: -1.5px;
 }
 
 .menu-overlay {
@@ -494,7 +515,7 @@ body.cursor-right * {
     border: none;
     color: rgba(255, 255, 255, 0.5);
     font-family: 'Times New Roman', serif;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
     opacity: 0;
