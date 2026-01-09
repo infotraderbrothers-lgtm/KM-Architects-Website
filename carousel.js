@@ -33,14 +33,13 @@ function updateCarousel() {
     const totalCards = pages.length;
     const anglePerCard = 360 / totalCards;
     const radius = 600;
-
     const normalizedRotation = ((rotation % 360) + 360) % 360;
     const newActiveIndex = Math.round(normalizedRotation / anglePerCard) % totalCards;
     
     if (newActiveIndex !== window.activeIndex) {
         window.activeIndex = newActiveIndex;
     }
-
+    
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i];
         
