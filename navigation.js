@@ -7,9 +7,15 @@ function nextSlide() {
         const nextImage = document.getElementById('nextImage');
         const textLayer = document.getElementById('textLayer');
         const nextTextLayer = document.getElementById('nextTextLayer');
+        const pageCategory = document.getElementById('pageCategory');
+        const pageSubtitle = document.getElementById('pageSubtitle');
         const mainTitle = document.getElementById('mainTitle');
+        const pageDescription = document.getElementById('pageDescription');
         const actionBtnText = document.getElementById('actionBtnText');
+        const nextPageCategory = document.getElementById('nextPageCategory');
+        const nextPageSubtitle = document.getElementById('nextPageSubtitle');
         const nextTitle = document.getElementById('nextTitle');
+        const nextPageDescription = document.getElementById('nextPageDescription');
         const nextBtnText = document.getElementById('nextBtnText');
         
         // Set up next image and text
@@ -18,7 +24,10 @@ function nextSlide() {
         nextImage.style.display = 'block';
         nextImage.className = 'main-image positioned-right';
         
+        nextPageCategory.textContent = pages[newIndex].category;
+        nextPageSubtitle.textContent = pages[newIndex].topSubtitle;
         nextTitle.textContent = pages[newIndex].description;
+        nextPageDescription.textContent = pages[newIndex].pageDescription;
         nextBtnText.textContent = pages[newIndex].buttonText;
         nextTextLayer.style.display = 'flex';
         nextTextLayer.className = 'text-layer positioned-right';
@@ -51,7 +60,10 @@ function nextSlide() {
             nextImage.style.display = 'none';
             nextImage.className = 'main-image';
             
+            pageCategory.textContent = pages[window.activeIndex].category;
+            pageSubtitle.textContent = pages[window.activeIndex].topSubtitle;
             mainTitle.textContent = pages[window.activeIndex].description;
+            pageDescription.textContent = pages[window.activeIndex].pageDescription;
             actionBtnText.textContent = pages[window.activeIndex].buttonText;
             textLayer.className = 'text-layer';
             nextTextLayer.style.display = 'none';
@@ -78,9 +90,15 @@ function prevSlide() {
         const nextImage = document.getElementById('nextImage');
         const textLayer = document.getElementById('textLayer');
         const nextTextLayer = document.getElementById('nextTextLayer');
+        const pageCategory = document.getElementById('pageCategory');
+        const pageSubtitle = document.getElementById('pageSubtitle');
         const mainTitle = document.getElementById('mainTitle');
+        const pageDescription = document.getElementById('pageDescription');
         const actionBtnText = document.getElementById('actionBtnText');
+        const nextPageCategory = document.getElementById('nextPageCategory');
+        const nextPageSubtitle = document.getElementById('nextPageSubtitle');
         const nextTitle = document.getElementById('nextTitle');
+        const nextPageDescription = document.getElementById('nextPageDescription');
         const nextBtnText = document.getElementById('nextBtnText');
         
         // Set up next image and text
@@ -89,7 +107,10 @@ function prevSlide() {
         nextImage.style.display = 'block';
         nextImage.className = 'main-image positioned-left';
         
+        nextPageCategory.textContent = pages[newIndex].category;
+        nextPageSubtitle.textContent = pages[newIndex].topSubtitle;
         nextTitle.textContent = pages[newIndex].description;
+        nextPageDescription.textContent = pages[newIndex].pageDescription;
         nextBtnText.textContent = pages[newIndex].buttonText;
         nextTextLayer.style.display = 'flex';
         nextTextLayer.className = 'text-layer positioned-left';
@@ -122,7 +143,10 @@ function prevSlide() {
             nextImage.style.display = 'none';
             nextImage.className = 'main-image';
             
+            pageCategory.textContent = pages[window.activeIndex].category;
+            pageSubtitle.textContent = pages[window.activeIndex].topSubtitle;
             mainTitle.textContent = pages[window.activeIndex].description;
+            pageDescription.textContent = pages[window.activeIndex].pageDescription;
             actionBtnText.textContent = pages[window.activeIndex].buttonText;
             textLayer.className = 'text-layer';
             nextTextLayer.style.display = 'none';
