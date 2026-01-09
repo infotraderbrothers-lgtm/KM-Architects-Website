@@ -4,8 +4,26 @@ window.menuOpen = false;
 function initMenu() {
     const menuBtn = document.getElementById('menuBtn');
     const menuOverlay = document.getElementById('menuOverlay');
+    const menuItems = document.querySelectorAll('.menu-item');
     
     menuBtn.addEventListener('click', toggleMenu);
+    
+    // Add click handlers for menu items
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const sectionName = this.textContent.toLowerCase();
+            
+            // Close menu first
+            toggleMenu();
+            
+            // Navigate to section with loading animation
+            setTimeout(() => {
+                showLoadingTransition(function() {
+                    navigateToSection(sectionName);
+                });
+            }, 500);
+        });
+    });
 }
 
 function toggleMenu() {
