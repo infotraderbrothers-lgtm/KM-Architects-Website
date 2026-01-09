@@ -8,17 +8,15 @@ function createCarouselCards() {
     const carouselStage = document.getElementById('carouselStage');
     carouselStage.innerHTML = '';
     
-    pages.forEach((page, index) => {
+    pages.forEach(function(page, index) {
         const card = document.createElement('div');
         card.className = 'carousel-card';
-        card.style.backgroundImage = `url(${page.image})`;
+        card.style.backgroundImage = 'url(' + page.image + ')';
         
         const label = document.createElement('div');
         label.className = 'carousel-label';
-        label.innerHTML = `
-            <div class="label-title">${page.title}</div>
-            <div class="label-subtitle">${page.subtitle}</div>
-        `;
+        label.innerHTML = '<div class="label-title">' + page.title + '</div>' +
+            '<div class="label-subtitle">' + page.subtitle + '</div>';
         
         card.appendChild(label);
         carouselStage.appendChild(card);
@@ -61,7 +59,7 @@ function updateCarousel() {
         const glowOpacity = glowIntensity * 0.6;
         
         // No scaling - cards stay at 400x400px
-        card.style.transform = `translateX(${x}px) translateZ(${z}px)`;
+        card.style.transform = 'translateX(' + x + 'px) translateZ(' + z + 'px)';
         
         if (card.classList.contains('visible')) {
             card.style.opacity = baseOpacity;
@@ -99,17 +97,17 @@ function animateCarousel() {
 function initCarousel() {
     const scrollBar = document.getElementById('scrollBar');
     
-    scrollBar.addEventListener('mouseenter', () => {
+    scrollBar.addEventListener('mouseenter', function() {
         isScrolling = true;
         scrollBar.classList.add('active');
     });
     
-    scrollBar.addEventListener('mouseleave', () => {
+    scrollBar.addEventListener('mouseleave', function() {
         isScrolling = false;
         scrollBar.classList.remove('active');
     });
     
-    scrollBar.addEventListener('wheel', (e) => {
+    scrollBar.addEventListener('wheel', function(e) {
         if (isScrolling) {
             e.preventDefault();
             const maxSpeed = 2;
