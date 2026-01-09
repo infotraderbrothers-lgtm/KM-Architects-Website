@@ -1,6 +1,6 @@
 // Navigation between slides
 function nextSlide() {
-    if (!window.transitioning && !window.isCarousel && !window.menuOpen) {
+    if (!window.transitioning && !window.isCarousel && !window.menuOpen && window.currentSection === 'home') {
         window.transitioning = true;
         
         const mainImage = document.getElementById('mainImage');
@@ -83,7 +83,7 @@ function nextSlide() {
 }
 
 function prevSlide() {
-    if (!window.transitioning && !window.isCarousel && !window.menuOpen) {
+    if (!window.transitioning && !window.isCarousel && !window.menuOpen && window.currentSection === 'home') {
         window.transitioning = true;
         
         const mainImage = document.getElementById('mainImage');
@@ -179,7 +179,7 @@ function initNavigation() {
         customCursorRight.style.left = (e.clientX - 16) + 'px';
         customCursorRight.style.top = (e.clientY - 16) + 'px';
 
-        if (window.isCarousel || window.transitioning || window.menuOpen) {
+        if (window.isCarousel || window.transitioning || window.menuOpen || window.currentSection !== 'home') {
             leftZone.classList.remove('active');
             rightZone.classList.remove('active');
             document.body.classList.remove('cursor-left', 'cursor-right');
@@ -226,7 +226,7 @@ function initNavigation() {
 
     // Keyboard navigation
     window.addEventListener('keydown', (e) => {
-        if (window.isCarousel || window.transitioning || window.menuOpen) return;
+        if (window.isCarousel || window.transitioning || window.menuOpen || window.currentSection !== 'home') return;
         
         if (e.key === 'ArrowRight') {
             nextSlide();
