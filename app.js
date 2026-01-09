@@ -2,6 +2,7 @@
 window.activeIndex = 0;
 window.isCarousel = false;
 window.transitioning = false;
+window.currentSection = 'home'; // Track current section
 
 function updateContent() {
     const pageCategory = document.getElementById('pageCategory');
@@ -17,6 +18,42 @@ function updateContent() {
     pageDescription.textContent = pages[window.activeIndex].pageDescription;
     actionBtnText.textContent = pages[window.activeIndex].buttonText;
     mainImage.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + pages[window.activeIndex].image + '\')';
+}
+
+function showLoadingTransition(callback) {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const container = document.querySelector('.container');
+    
+    // Show loading screen
+    loadingScreen.style.display = 'flex';
+    loadingScreen.classList.remove('fade-out');
+    loadingScreen.classList.add('active');
+    
+    // Restart KM animation
+    const logoBox = loadingScreen.querySelector('.loading-logo-box');
+    const logoLetters = loadingScreen.querySelector('.loading-logo-letters');
+    const logoName = loadingScreen.querySelector('.loading-logo-name');
+    
+    logoBox.style.animation = 'none';
+    logoLetters.style.animation = 'none';
+    logoName.style.animation = 'none';
+    
+    setTimeout(() => {
+        logoBox.style.animation = 'expandBox 2s ease-out forwards';
+        logoLetters.style.animation = 'fadeInLetters 1s ease-out 1.5s forwards';
+        logoName.style.animation = 'fadeInName 1s ease-out 2.5s forwards';
+    }, 10);
+    
+    // Fade out after animations complete with 0.3s delay
+    setTimeout(() => {
+        loadingScreen.classList.add('fade-out');
+        
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            loadingScreen.classList.remove('active');
+            if (callback) callback();
+        }, 1000);
+    }, 3800); // 3.5s animations + 0.3s delay
 }
 
 function handleToggle() {
@@ -98,21 +135,39 @@ function handleToggle() {
 
 function init() {
     const container = document.querySelector('.container');
+    const loadingScreen = document.getElementById('loadingScreen');
     
     setTimeout(function() {
-        container.classList.add('visible');
+        loadingScreen.classList.add('fade-out');
         
         setTimeout(function() {
-            updateContent();
-            createCarouselCards();
-            initCarousel();
-            initNavigation();
-            initMenu();
+            loadingScreen.style.display = 'none';
+            container.classList.add('visible');
             
-            const toggleBtn = document.getElementById('toggleBtn');
-            toggleBtn.addEventListener('click', handleToggle);
-        }, 500);
-    }, 7000);
+            setTimeout(function() {
+                updateContent();
+                createCarouselCards();
+                initCarousel();
+                initNavigation();
+                initMenu();
+                initSections();
+                
+                const toggleBtn = document.getElementById('toggleBtn');
+                toggleBtn.addEventListener('click', handleToggle);
+                
+                // Logo click handler
+                const logo = document.querySelector('.logo');
+                logo.style.cursor = 'pointer';
+                logo.addEventListener('click', function() {
+                    if (window.currentSection !== 'home' && !window.transitioning) {
+                        showLoadingTransition(function() {
+                            returnToHome();
+                        });
+                    }
+                });
+            }, 500);
+        }, 1000);
+    }, 3800); // 3.5s animations + 0.3s delay
 }
 
 if (document.readyState === 'loading') {
