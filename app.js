@@ -4,11 +4,17 @@ window.isCarousel = false;
 window.transitioning = false;
 
 function updateContent() {
+    const pageCategory = document.getElementById('pageCategory');
+    const pageSubtitle = document.getElementById('pageSubtitle');
     const mainTitle = document.getElementById('mainTitle');
+    const pageDescription = document.getElementById('pageDescription');
     const actionBtnText = document.getElementById('actionBtnText');
     const mainImage = document.getElementById('mainImage');
     
+    pageCategory.textContent = pages[window.activeIndex].category;
+    pageSubtitle.textContent = pages[window.activeIndex].topSubtitle;
     mainTitle.textContent = pages[window.activeIndex].description;
+    pageDescription.textContent = pages[window.activeIndex].pageDescription;
     actionBtnText.textContent = pages[window.activeIndex].buttonText;
     mainImage.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + pages[window.activeIndex].image + '\')';
 }
