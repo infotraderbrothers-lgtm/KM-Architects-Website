@@ -38,17 +38,17 @@ function showLoadingTransition(callback) {
     logoLetters.style.animation = 'none';
     logoName.style.animation = 'none';
     
-    setTimeout(() => {
+    setTimeout(function() {
         logoBox.style.animation = 'expandBox 2s ease-out forwards';
         logoLetters.style.animation = 'fadeInLetters 1s ease-out 1.5s forwards';
         logoName.style.animation = 'fadeInName 1s ease-out 2.5s forwards';
     }, 10);
     
     // Fade out after animations complete with 0.3s delay
-    setTimeout(() => {
+    setTimeout(function() {
         loadingScreen.classList.add('fade-out');
         
-        setTimeout(() => {
+        setTimeout(function() {
             loadingScreen.style.display = 'none';
             loadingScreen.classList.remove('active');
             if (callback) callback();
