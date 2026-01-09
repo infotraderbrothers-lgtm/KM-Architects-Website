@@ -44,16 +44,14 @@ function createStandardSection(container, data) {
     // Create hero section
     const heroSection = document.createElement('div');
     heroSection.className = 'section-hero';
-    heroSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${data.heroImage}')`;
+    heroSection.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + data.heroImage + '\')';
     
     const heroContent = document.createElement('div');
     heroContent.className = 'section-hero-content';
-    heroContent.innerHTML = `
-        <div class="page-category">${data.category}</div>
-        <div class="page-subtitle">${data.topSubtitle}</div>
-        <h1 class="main-title">${data.title}</h1>
-        <p class="page-description">${data.description}</p>
-    `;
+    heroContent.innerHTML = '<div class="page-category">' + data.category + '</div>' +
+        '<div class="page-subtitle">' + data.topSubtitle + '</div>' +
+        '<h1 class="main-title">' + data.title + '</h1>' +
+        '<p class="page-description">' + data.description + '</p>';
     
     heroSection.appendChild(heroContent);
     container.appendChild(heroSection);
@@ -62,46 +60,40 @@ function createStandardSection(container, data) {
     const contentSection = document.createElement('div');
     contentSection.className = 'section-content';
     
-    data.contentBlocks.forEach(block => {
+    data.contentBlocks.forEach(function(block) {
         if (block.type === 'text') {
             const textBlock = document.createElement('div');
             textBlock.className = 'content-block text-block';
-            textBlock.innerHTML = `
-                <h2>${block.heading}</h2>
-                <p>${block.text}</p>
-            `;
+            textBlock.innerHTML = '<h2>' + block.heading + '</h2>' +
+                '<p>' + block.text + '</p>';
             contentSection.appendChild(textBlock);
         } else if (block.type === 'image') {
             const imageBlock = document.createElement('div');
             imageBlock.className = 'content-block image-block';
-            imageBlock.innerHTML = `
-                <img src="${block.image}" alt="${block.alt}">
-                ${block.caption ? `<p class="image-caption">${block.caption}</p>` : ''}
-            `;
+            imageBlock.innerHTML = '<img src="' + block.image + '" alt="' + block.alt + '">' +
+                (block.caption ? '<p class="image-caption">' + block.caption + '</p>' : '');
             contentSection.appendChild(imageBlock);
         } else if (block.type === 'list') {
             const listBlock = document.createElement('div');
             listBlock.className = 'content-block list-block';
-            const listItems = block.items.map(item => `<li>${item}</li>`).join('');
-            listBlock.innerHTML = `
-                <h2>${block.heading}</h2>
-                <ul>${listItems}</ul>
-            `;
+            const listItems = block.items.map(function(item) {
+                return '<li>' + item + '</li>';
+            }).join('');
+            listBlock.innerHTML = '<h2>' + block.heading + '</h2>' +
+                '<ul>' + listItems + '</ul>';
             contentSection.appendChild(listBlock);
         } else if (block.type === 'grid') {
             const gridBlock = document.createElement('div');
             gridBlock.className = 'content-block grid-block';
-            const gridItems = block.items.map(item => `
-                <div class="grid-item">
-                    <img src="${item.image}" alt="${item.title}">
-                    <h3>${item.title}</h3>
-                    <p>${item.description}</p>
-                </div>
-            `).join('');
-            gridBlock.innerHTML = `
-                <h2>${block.heading}</h2>
-                <div class="grid-container">${gridItems}</div>
-            `;
+            const gridItems = block.items.map(function(item) {
+                return '<div class="grid-item">' +
+                    '<img src="' + item.image + '" alt="' + item.title + '">' +
+                    '<h3>' + item.title + '</h3>' +
+                    '<p>' + item.description + '</p>' +
+                    '</div>';
+            }).join('');
+            gridBlock.innerHTML = '<h2>' + block.heading + '</h2>' +
+                '<div class="grid-container">' + gridItems + '</div>';
             contentSection.appendChild(gridBlock);
         }
     });
@@ -111,14 +103,14 @@ function createStandardSection(container, data) {
     // Create navigation footer
     const navFooter = document.createElement('div');
     navFooter.className = 'section-nav-footer';
-    navFooter.style.backgroundImage = `url('${data.nextImage}')`;
+    navFooter.style.backgroundImage = 'url(\'' + data.nextImage + '\')';
     
     const navOverlay = document.createElement('div');
     navOverlay.className = 'nav-footer-overlay';
     
     const navText = document.createElement('div');
     navText.className = 'nav-footer-text';
-    navText.textContent = `Next: ${data.nextSection}`;
+    navText.textContent = 'Next: ' + data.nextSection;
     
     navOverlay.appendChild(navText);
     navFooter.appendChild(navOverlay);
@@ -136,16 +128,14 @@ function createPortfolioSection(container, data) {
     // Create hero section
     const heroSection = document.createElement('div');
     heroSection.className = 'section-hero';
-    heroSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${data.heroImage}')`;
+    heroSection.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + data.heroImage + '\')';
     
     const heroContent = document.createElement('div');
     heroContent.className = 'section-hero-content';
-    heroContent.innerHTML = `
-        <div class="page-category">${data.category}</div>
-        <div class="page-subtitle">${data.topSubtitle}</div>
-        <h1 class="main-title">${data.title}</h1>
-        <p class="page-description">${data.description}</p>
-    `;
+    heroContent.innerHTML = '<div class="page-category">' + data.category + '</div>' +
+        '<div class="page-subtitle">' + data.topSubtitle + '</div>' +
+        '<h1 class="main-title">' + data.title + '</h1>' +
+        '<p class="page-description">' + data.description + '</p>';
     
     heroSection.appendChild(heroContent);
     container.appendChild(heroSection);
@@ -154,17 +144,15 @@ function createPortfolioSection(container, data) {
     const portfolioSection = document.createElement('div');
     portfolioSection.className = 'portfolio-carousel-section';
     
-    portfolioSection.innerHTML = `
-        <div class="portfolio-carousel-wrapper">
-            <div class="portfolio-carousel-container">
-                <div class="portfolio-carousel-stage" id="portfolioCarouselStage"></div>
-            </div>
-            <div class="portfolio-toggle-buttons">
-                <button class="portfolio-toggle-btn active" data-type="commercial">Commercial</button>
-                <button class="portfolio-toggle-btn" data-type="residential">Residential</button>
-            </div>
-        </div>
-    `;
+    portfolioSection.innerHTML = '<div class="portfolio-carousel-wrapper">' +
+        '<div class="portfolio-carousel-container">' +
+        '<div class="portfolio-carousel-stage" id="portfolioCarouselStage"></div>' +
+        '</div>' +
+        '<div class="portfolio-toggle-buttons">' +
+        '<button class="portfolio-toggle-btn active" data-type="commercial">Commercial</button>' +
+        '<button class="portfolio-toggle-btn" data-type="residential">Residential</button>' +
+        '</div>' +
+        '</div>';
     
     container.appendChild(portfolioSection);
     
@@ -174,14 +162,14 @@ function createPortfolioSection(container, data) {
     // Create navigation footer
     const navFooter = document.createElement('div');
     navFooter.className = 'section-nav-footer';
-    navFooter.style.backgroundImage = `url('${data.nextImage}')`;
+    navFooter.style.backgroundImage = 'url(\'' + data.nextImage + '\')';
     
     const navOverlay = document.createElement('div');
     navOverlay.className = 'nav-footer-overlay';
     
     const navText = document.createElement('div');
     navText.className = 'nav-footer-text';
-    navText.textContent = `Next: ${data.nextSection}`;
+    navText.textContent = 'Next: ' + data.nextSection;
     
     navOverlay.appendChild(navText);
     navFooter.appendChild(navOverlay);
@@ -205,7 +193,7 @@ function initPortfolioCarousel() {
     createPortfolioCards('commercial');
     
     const toggleButtons = document.querySelectorAll('.portfolio-toggle-btn');
-    toggleButtons.forEach(btn => {
+    toggleButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
             const type = this.getAttribute('data-type');
             if (type !== currentPortfolioType) {
@@ -224,17 +212,15 @@ function createPortfolioCards(type) {
     const projects = portfolioProjects[type];
     stage.innerHTML = '';
     
-    projects.forEach((project, index) => {
+    projects.forEach(function(project, index) {
         const card = document.createElement('div');
         card.className = 'portfolio-carousel-card';
-        card.style.backgroundImage = `url(${project.image})`;
+        card.style.backgroundImage = 'url(' + project.image + ')';
         
         const label = document.createElement('div');
         label.className = 'portfolio-carousel-label';
-        label.innerHTML = `
-            <div class="portfolio-label-title">${project.title}</div>
-            <div class="portfolio-label-subtitle">${project.location}</div>
-        `;
+        label.innerHTML = '<div class="portfolio-label-title">' + project.title + '</div>' +
+            '<div class="portfolio-label-subtitle">' + project.location + '</div>';
         
         card.appendChild(label);
         stage.appendChild(card);
@@ -252,7 +238,7 @@ function switchPortfolioType(type) {
     const buttons = document.querySelectorAll('.portfolio-toggle-btn');
     
     // Update button states
-    buttons.forEach(btn => {
+    buttons.forEach(function(btn) {
         if (btn.getAttribute('data-type') === type) {
             btn.classList.add('active');
         } else {
@@ -261,26 +247,26 @@ function switchPortfolioType(type) {
     });
     
     // Slide out current cards
-    cards.forEach(card => {
+    cards.forEach(function(card) {
         card.style.transition = 'transform 2s ease, opacity 2s ease';
         card.style.transform = 'translateX(-100%)';
         card.style.opacity = '0';
     });
     
-    setTimeout(() => {
+    setTimeout(function() {
         currentPortfolioType = type;
         createPortfolioCards(type);
         
         // Slide in new cards
         const newCards = stage.querySelectorAll('.portfolio-carousel-card');
-        newCards.forEach(card => {
+        newCards.forEach(function(card) {
             card.style.transition = 'none';
             card.style.transform = 'translateX(100%)';
             card.style.opacity = '0';
         });
         
-        setTimeout(() => {
-            newCards.forEach(card => {
+        setTimeout(function() {
+            newCards.forEach(function(card) {
                 card.style.transition = 'transform 2s ease, opacity 2s ease';
                 card.style.transform = '';
                 card.style.opacity = '';
@@ -315,7 +301,7 @@ function updatePortfolioCarousel() {
         
         const isActive = i === portfolioActiveIndex;
         
-        card.style.transform = `translateX(${x}px) translateZ(${z}px)`;
+        card.style.transform = 'translateX(' + x + 'px) translateZ(' + z + 'px)';
         card.style.opacity = baseOpacity;
         card.style.zIndex = Math.round(z);
         card.style.filter = isActive ? 'brightness(1.3)' : 'brightness(0.7)';
