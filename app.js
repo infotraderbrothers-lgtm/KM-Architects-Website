@@ -106,7 +106,7 @@ function init() {
             const toggleBtn = document.getElementById('toggleBtn');
             toggleBtn.addEventListener('click', handleToggle);
         }, 500);
-    }, 5000);
+    }, 7000);
 }
 
 if (document.readyState === 'loading') {
