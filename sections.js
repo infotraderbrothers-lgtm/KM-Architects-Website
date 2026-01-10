@@ -1,7 +1,6 @@
 // Section page management
 
 function initSections() {
-    // Initialize section page functionality
     window.currentSection = 'home';
 }
 
@@ -13,18 +12,14 @@ function navigateToSection(sectionName) {
     const mainImageContainer = document.getElementById('mainImageContainer');
     const content = document.getElementById('content');
     const toggleBtn = document.getElementById('toggleBtn');
-    const header = document.getElementById('header');
     
-    // Hide main page elements
     mainImageContainer.style.display = 'none';
     content.style.display = 'none';
     toggleBtn.style.display = 'none';
     
-    // Show section page
     sectionPage.style.display = 'block';
-    sectionPage.innerHTML = ''; // Clear previous content
+    sectionPage.innerHTML = '';
     
-    // Get section data
     const sectionData = sectionsData[sectionName];
     
     if (sectionName === 'portfolio') {
@@ -33,30 +28,23 @@ function navigateToSection(sectionName) {
         createStandardSection(sectionPage, sectionData);
     }
     
-    // Scroll to top
     sectionPage.scrollTop = 0;
     
-    // Make container visible
     container.classList.add('visible');
 }
 
 function createStandardSection(container, data) {
-    // Create hero section
     const heroSection = document.createElement('div');
     heroSection.className = 'section-hero';
     heroSection.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + data.heroImage + '\')';
     
     const heroContent = document.createElement('div');
     heroContent.className = 'section-hero-content';
-    heroContent.innerHTML = '<div class="page-category">' + data.category + '</div>' +
-        '<div class="page-subtitle">' + data.topSubtitle + '</div>' +
-        '<h1 class="main-title">' + data.title + '</h1>' +
-        '<p class="page-description">' + data.description + '</p>';
+    heroContent.innerHTML = '<div class="page-category">' + data.category + '</div><div class="page-subtitle">' + data.topSubtitle + '</div><h1 class="main-title">' + data.title + '</h1><p class="page-description">' + data.description + '</p>';
     
     heroSection.appendChild(heroContent);
     container.appendChild(heroSection);
     
-    // Create content section
     const contentSection = document.createElement('div');
     contentSection.className = 'section-content';
     
@@ -64,43 +52,32 @@ function createStandardSection(container, data) {
         if (block.type === 'text') {
             const textBlock = document.createElement('div');
             textBlock.className = 'content-block text-block';
-            textBlock.innerHTML = '<h2>' + block.heading + '</h2>' +
-                '<p>' + block.text + '</p>';
+            textBlock.innerHTML = '<h2>' + block.heading + '</h2><p>' + block.text + '</p>';
             contentSection.appendChild(textBlock);
         } else if (block.type === 'image') {
             const imageBlock = document.createElement('div');
             imageBlock.className = 'content-block image-block';
-            imageBlock.innerHTML = '<img src="' + block.image + '" alt="' + block.alt + '">' +
-                (block.caption ? '<p class="image-caption">' + block.caption + '</p>' : '');
+            imageBlock.innerHTML = '<img src="' + block.image + '" alt="' + block.alt + '">' + (block.caption ? '<p class="image-caption">' + block.caption + '</p>' : '');
             contentSection.appendChild(imageBlock);
         } else if (block.type === 'list') {
             const listBlock = document.createElement('div');
             listBlock.className = 'content-block list-block';
-            const listItems = block.items.map(function(item) {
-                return '<li>' + item + '</li>';
-            }).join('');
-            listBlock.innerHTML = '<h2>' + block.heading + '</h2>' +
-                '<ul>' + listItems + '</ul>';
+            const listItems = block.items.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+            listBlock.innerHTML = '<h2>' + block.heading + '</h2><ul>' + listItems + '</ul>';
             contentSection.appendChild(listBlock);
         } else if (block.type === 'grid') {
             const gridBlock = document.createElement('div');
             gridBlock.className = 'content-block grid-block';
-            const gridItems = block.items.map(function(item) {
-                return '<div class="grid-item">' +
-                    '<img src="' + item.image + '" alt="' + item.title + '">' +
-                    '<h3>' + item.title + '</h3>' +
-                    '<p>' + item.description + '</p>' +
-                    '</div>';
+            const gridItems = block.items.map(function(item) { 
+                return '<div class="grid-item"><img src="' + item.image + '" alt="' + item.title + '"><h3>' + item.title + '</h3><p>' + item.description + '</p></div>'; 
             }).join('');
-            gridBlock.innerHTML = '<h2>' + block.heading + '</h2>' +
-                '<div class="grid-container">' + gridItems + '</div>';
+            gridBlock.innerHTML = '<h2>' + block.heading + '</h2><div class="grid-container">' + gridItems + '</div>';
             contentSection.appendChild(gridBlock);
         }
     });
     
     container.appendChild(contentSection);
     
-    // Create navigation footer
     const navFooter = document.createElement('div');
     navFooter.className = 'section-nav-footer';
     navFooter.style.backgroundImage = 'url(\'' + data.nextImage + '\')';
@@ -125,41 +102,26 @@ function createStandardSection(container, data) {
 }
 
 function createPortfolioSection(container, data) {
-    // Create hero section
     const heroSection = document.createElement('div');
     heroSection.className = 'section-hero';
     heroSection.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + data.heroImage + '\')';
     
     const heroContent = document.createElement('div');
     heroContent.className = 'section-hero-content';
-    heroContent.innerHTML = '<div class="page-category">' + data.category + '</div>' +
-        '<div class="page-subtitle">' + data.topSubtitle + '</div>' +
-        '<h1 class="main-title">' + data.title + '</h1>' +
-        '<p class="page-description">' + data.description + '</p>';
+    heroContent.innerHTML = '<div class="page-category">' + data.category + '</div><div class="page-subtitle">' + data.topSubtitle + '</div><h1 class="main-title">' + data.title + '</h1><p class="page-description">' + data.description + '</p>';
     
     heroSection.appendChild(heroContent);
     container.appendChild(heroSection);
     
-    // Create portfolio carousel section
     const portfolioSection = document.createElement('div');
     portfolioSection.className = 'portfolio-carousel-section';
     
-    portfolioSection.innerHTML = '<div class="portfolio-carousel-wrapper">' +
-        '<div class="portfolio-carousel-container">' +
-        '<div class="portfolio-carousel-stage" id="portfolioCarouselStage"></div>' +
-        '</div>' +
-        '<div class="portfolio-toggle-buttons">' +
-        '<button class="portfolio-toggle-btn active" data-type="commercial">Commercial</button>' +
-        '<button class="portfolio-toggle-btn" data-type="residential">Residential</button>' +
-        '</div>' +
-        '</div>';
+    portfolioSection.innerHTML = '<div class="portfolio-carousel-wrapper"><div class="portfolio-carousel-container"><div class="portfolio-carousel-stage" id="portfolioCarouselStage"></div></div><div class="portfolio-toggle-buttons"><button class="portfolio-toggle-btn active" data-type="commercial">Commercial</button><button class="portfolio-toggle-btn" data-type="residential">Residential</button></div></div>';
     
     container.appendChild(portfolioSection);
     
-    // Initialize portfolio carousel
     initPortfolioCarousel();
     
-    // Create navigation footer
     const navFooter = document.createElement('div');
     navFooter.className = 'section-nav-footer';
     navFooter.style.backgroundImage = 'url(\'' + data.nextImage + '\')';
@@ -219,8 +181,7 @@ function createPortfolioCards(type) {
         
         const label = document.createElement('div');
         label.className = 'portfolio-carousel-label';
-        label.innerHTML = '<div class="portfolio-label-title">' + project.title + '</div>' +
-            '<div class="portfolio-label-subtitle">' + project.location + '</div>';
+        label.innerHTML = '<div class="portfolio-label-title">' + project.title + '</div><div class="portfolio-label-subtitle">' + project.location + '</div>';
         
         card.appendChild(label);
         stage.appendChild(card);
@@ -237,7 +198,6 @@ function switchPortfolioType(type) {
     const cards = stage.querySelectorAll('.portfolio-carousel-card');
     const buttons = document.querySelectorAll('.portfolio-toggle-btn');
     
-    // Update button states
     buttons.forEach(function(btn) {
         if (btn.getAttribute('data-type') === type) {
             btn.classList.add('active');
@@ -246,7 +206,6 @@ function switchPortfolioType(type) {
         }
     });
     
-    // Slide out current cards
     cards.forEach(function(card) {
         card.style.transition = 'transform 2s ease, opacity 2s ease';
         card.style.transform = 'translateX(-100%)';
@@ -257,7 +216,6 @@ function switchPortfolioType(type) {
         currentPortfolioType = type;
         createPortfolioCards(type);
         
-        // Slide in new cards
         const newCards = stage.querySelectorAll('.portfolio-carousel-card');
         newCards.forEach(function(card) {
             card.style.transition = 'none';
@@ -329,21 +287,16 @@ function returnToHome() {
     const toggleBtn = document.getElementById('toggleBtn');
     const container = document.querySelector('.container');
     
-    // Hide section page
     sectionPage.style.display = 'none';
     sectionPage.innerHTML = '';
     
-    // Show main page elements
     mainImageContainer.style.display = 'block';
     content.style.display = 'flex';
     toggleBtn.style.display = 'block';
     
-    // Make sure we're in the correct view
     if (window.isCarousel) {
-        // If we were in carousel, we need to exit it
         handleToggle();
     }
     
-    // Make container visible
     container.classList.add('visible');
 }
