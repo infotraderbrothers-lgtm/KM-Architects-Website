@@ -25,42 +25,62 @@ function showLoadingTransition(callback) {
     
     loadingScreen.style.display = 'flex';
     loadingScreen.style.opacity = '1';
+    loadingScreen.style.visibility = 'visible';
+    loadingScreen.style.pointerEvents = 'all';
+    loadingScreen.classList.add('transition');
+    loadingScreen.classList.remove('fade-out');
     
     const logoBox = loadingScreen.querySelector('.loading-logo-box');
-    const logoLetters = loadingScreen.querySelector('.loading-logo-letters');
+    const logoCornerTL = loadingScreen.querySelector('.loading-logo-corner-tl');
+    const logoCornerBR = loadingScreen.querySelector('.loading-logo-corner-br');
+    const logoDivider = loadingScreen.querySelector('.loading-logo-divider');
+    const logoLetters = loadingScreen.querySelectorAll('.loading-logo-letter');
     const logoName = loadingScreen.querySelector('.loading-logo-name');
-    const logoLine = loadingScreen.querySelector('.loading-logo-line');
     
-    logoBox.style.animation = 'none';
-    logoLetters.style.animation = 'none';
-    logoName.style.animation = 'none';
-    
-    logoBox.offsetHeight;
-    
-    logoBox.style.animation = 'expandBox 2s ease-out forwards';
-    logoLetters.style.animation = 'fadeInLetters 1s ease-out 1.5s forwards';
-    logoName.style.animation = 'fadeInName 1s ease-out 2.5s forwards';
+    logoCornerTL.style.opacity = '0';
+    logoCornerBR.style.opacity = '0';
+    logoDivider.style.opacity = '0';
+    logoLetters[0].style.opacity = '0';
+    logoLetters[1].style.opacity = '0';
+    logoName.style.opacity = '0';
     
     setTimeout(function() {
-        logoName.style.animation = 'fadeOutName 0.8s ease-out forwards';
+        logoCornerTL.style.opacity = '1';
+        logoCornerBR.style.opacity = '1';
+        logoDivider.style.opacity = '1';
+        logoLetters[0].style.opacity = '1';
+        logoLetters[1].style.opacity = '1';
         
         setTimeout(function() {
-            logoLetters.style.animation = 'fadeOutLetters 0.8s ease-out forwards';
-            logoLine.style.animation = 'fadeOutLine 0.8s ease-out forwards';
-            logoBox.style.animation = 'fadeOutBox 0.8s ease-out forwards';
+            logoName.style.opacity = '1';
+            logoName.style.clipPath = 'inset(0 0 0 0)';
             
             setTimeout(function() {
-                loadingScreen.style.opacity = '0';
-                loadingScreen.style.transition = 'opacity 1s ease';
+                logoName.style.clipPath = 'inset(0 100% 0 0)';
+                logoName.style.opacity = '0';
                 
                 setTimeout(function() {
-                    loadingScreen.style.display = 'none';
-                    loadingScreen.style.transition = '';
-                    if (callback) callback();
+                    logoLetters[0].style.opacity = '0';
+                    logoLetters[1].style.opacity = '0';
+                    logoCornerTL.style.opacity = '0';
+                    logoCornerBR.style.opacity = '0';
+                    logoDivider.style.opacity = '0';
+                    
+                    setTimeout(function() {
+                        loadingScreen.style.opacity = '0';
+                        
+                        setTimeout(function() {
+                            loadingScreen.style.display = 'none';
+                            loadingScreen.style.visibility = 'hidden';
+                            loadingScreen.style.pointerEvents = 'none';
+                            loadingScreen.classList.remove('transition');
+                            if (callback) callback();
+                        }, 1000);
+                    }, 300);
                 }, 1000);
-            }, 300);
-        }, 800);
-    }, 3500);
+            }, 1500);
+        }, 500);
+    }, 100);
 }
 
 function handleToggle() {
@@ -142,54 +162,32 @@ function handleToggle() {
 
 function init() {
     const container = document.querySelector('.container');
-    const loadingScreen = document.getElementById('loadingScreen');
     
     setTimeout(function() {
-        const logoName = loadingScreen.querySelector('.loading-logo-name');
-        logoName.style.animation = 'fadeOutName 0.8s ease-out forwards';
+        container.classList.add('visible');
         
         setTimeout(function() {
-            const logoLetters = loadingScreen.querySelector('.loading-logo-letters');
-            const logoLine = loadingScreen.querySelector('.loading-logo-line');
-            const logoBox = loadingScreen.querySelector('.loading-logo-box');
+            updateContent();
+            createCarouselCards();
+            initCarousel();
+            initNavigation();
+            initMenu();
+            initSections();
             
-            logoLetters.style.animation = 'fadeOutLetters 0.8s ease-out forwards';
-            logoLine.style.animation = 'fadeOutLine 0.8s ease-out forwards';
-            logoBox.style.animation = 'fadeOutBox 0.8s ease-out forwards';
+            const toggleBtn = document.getElementById('toggleBtn');
+            toggleBtn.addEventListener('click', handleToggle);
             
-            setTimeout(function() {
-                loadingScreen.style.opacity = '0';
-                loadingScreen.style.transition = 'opacity 1s ease';
-                
-                setTimeout(function() {
-                    loadingScreen.style.display = 'none';
-                    container.classList.add('visible');
-                    
-                    setTimeout(function() {
-                        updateContent();
-                        createCarouselCards();
-                        initCarousel();
-                        initNavigation();
-                        initMenu();
-                        initSections();
-                        
-                        const toggleBtn = document.getElementById('toggleBtn');
-                        toggleBtn.addEventListener('click', handleToggle);
-                        
-                        const logo = document.querySelector('.logo');
-                        logo.style.cursor = 'pointer';
-                        logo.addEventListener('click', function() {
-                            if (window.currentSection !== 'home' && !window.transitioning) {
-                                showLoadingTransition(function() {
-                                    returnToHome();
-                                });
-                            }
-                        });
-                    }, 500);
-                }, 1000);
-            }, 300);
-        }, 800);
-    }, 3500);
+            const logo = document.querySelector('.logo');
+            logo.style.cursor = 'pointer';
+            logo.addEventListener('click', function() {
+                if (window.currentSection !== 'home' && !window.transitioning) {
+                    showLoadingTransition(function() {
+                        returnToHome();
+                    });
+                }
+            });
+        }, 500);
+    }, 7000);
 }
 
 if (document.readyState === 'loading') {
