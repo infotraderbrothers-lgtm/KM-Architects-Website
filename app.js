@@ -2,7 +2,7 @@
 window.activeIndex = 0;
 window.isCarousel = false;
 window.transitioning = false;
-window.currentSection = 'home'; // Track current section
+window.currentSection = 'home';
 
 function updateContent() {
     const pageCategory = document.getElementById('pageCategory');
@@ -22,38 +22,45 @@ function updateContent() {
 
 function showLoadingTransition(callback) {
     const loadingScreen = document.getElementById('loadingScreen');
-    const container = document.querySelector('.container');
     
-    // Show loading screen
     loadingScreen.style.display = 'flex';
-    loadingScreen.classList.remove('fade-out');
-    loadingScreen.classList.add('active');
+    loadingScreen.style.opacity = '1';
     
-    // Restart KM animation
     const logoBox = loadingScreen.querySelector('.loading-logo-box');
     const logoLetters = loadingScreen.querySelector('.loading-logo-letters');
     const logoName = loadingScreen.querySelector('.loading-logo-name');
+    const logoLine = loadingScreen.querySelector('.loading-logo-line');
     
     logoBox.style.animation = 'none';
     logoLetters.style.animation = 'none';
     logoName.style.animation = 'none';
     
-    setTimeout(function() {
-        logoBox.style.animation = 'expandBox 2s ease-out forwards';
-        logoLetters.style.animation = 'fadeInLetters 1s ease-out 1.5s forwards';
-        logoName.style.animation = 'fadeInName 1s ease-out 2.5s forwards';
-    }, 10);
+    logoBox.offsetHeight;
     
-    // Fade out after animations complete with 0.3s delay
+    logoBox.style.animation = 'expandBox 2s ease-out forwards';
+    logoLetters.style.animation = 'fadeInLetters 1s ease-out 1.5s forwards';
+    logoName.style.animation = 'fadeInName 1s ease-out 2.5s forwards';
+    
     setTimeout(function() {
-        loadingScreen.classList.add('fade-out');
+        logoName.style.animation = 'fadeOutName 0.8s ease-out forwards';
         
         setTimeout(function() {
-            loadingScreen.style.display = 'none';
-            loadingScreen.classList.remove('active');
-            if (callback) callback();
-        }, 1000);
-    }, 3800); // 3.5s animations + 0.3s delay
+            logoLetters.style.animation = 'fadeOutLetters 0.8s ease-out forwards';
+            logoLine.style.animation = 'fadeOutLine 0.8s ease-out forwards';
+            logoBox.style.animation = 'fadeOutBox 0.8s ease-out forwards';
+            
+            setTimeout(function() {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 1s ease';
+                
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    loadingScreen.style.transition = '';
+                    if (callback) callback();
+                }, 1000);
+            }, 300);
+        }, 800);
+    }, 3500);
 }
 
 function handleToggle() {
@@ -138,36 +145,51 @@ function init() {
     const loadingScreen = document.getElementById('loadingScreen');
     
     setTimeout(function() {
-        loadingScreen.classList.add('fade-out');
+        const logoName = loadingScreen.querySelector('.loading-logo-name');
+        logoName.style.animation = 'fadeOutName 0.8s ease-out forwards';
         
         setTimeout(function() {
-            loadingScreen.style.display = 'none';
-            container.classList.add('visible');
+            const logoLetters = loadingScreen.querySelector('.loading-logo-letters');
+            const logoLine = loadingScreen.querySelector('.loading-logo-line');
+            const logoBox = loadingScreen.querySelector('.loading-logo-box');
+            
+            logoLetters.style.animation = 'fadeOutLetters 0.8s ease-out forwards';
+            logoLine.style.animation = 'fadeOutLine 0.8s ease-out forwards';
+            logoBox.style.animation = 'fadeOutBox 0.8s ease-out forwards';
             
             setTimeout(function() {
-                updateContent();
-                createCarouselCards();
-                initCarousel();
-                initNavigation();
-                initMenu();
-                initSections();
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 1s ease';
                 
-                const toggleBtn = document.getElementById('toggleBtn');
-                toggleBtn.addEventListener('click', handleToggle);
-                
-                // Logo click handler
-                const logo = document.querySelector('.logo');
-                logo.style.cursor = 'pointer';
-                logo.addEventListener('click', function() {
-                    if (window.currentSection !== 'home' && !window.transitioning) {
-                        showLoadingTransition(function() {
-                            returnToHome();
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    container.classList.add('visible');
+                    
+                    setTimeout(function() {
+                        updateContent();
+                        createCarouselCards();
+                        initCarousel();
+                        initNavigation();
+                        initMenu();
+                        initSections();
+                        
+                        const toggleBtn = document.getElementById('toggleBtn');
+                        toggleBtn.addEventListener('click', handleToggle);
+                        
+                        const logo = document.querySelector('.logo');
+                        logo.style.cursor = 'pointer';
+                        logo.addEventListener('click', function() {
+                            if (window.currentSection !== 'home' && !window.transitioning) {
+                                showLoadingTransition(function() {
+                                    returnToHome();
+                                });
+                            }
                         });
-                    }
-                });
-            }, 500);
-        }, 1000);
-    }, 3800); // 3.5s animations + 0.3s delay
+                    }, 500);
+                }, 1000);
+            }, 300);
+        }, 800);
+    }, 3500);
 }
 
 if (document.readyState === 'loading') {
