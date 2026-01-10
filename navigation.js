@@ -18,9 +18,8 @@ function nextSlide() {
         const nextPageDescription = document.getElementById('nextPageDescription');
         const nextBtnText = document.getElementById('nextBtnText');
         
-        // Set up next image and text
         const newIndex = (window.activeIndex + 1) % pages.length;
-        nextImage.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${pages[newIndex].image}')`;
+        nextImage.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + pages[newIndex].image + '\')';
         nextImage.style.display = 'block';
         nextImage.className = 'main-image positioned-right';
         
@@ -32,11 +31,9 @@ function nextSlide() {
         nextTextLayer.style.display = 'flex';
         nextTextLayer.className = 'text-layer positioned-right';
         
-        // Force reflow
         nextImage.offsetHeight;
         nextTextLayer.offsetHeight;
         
-        // Animate both images and text
         mainImage.classList.add('slide-out-left');
         nextImage.classList.remove('positioned-right');
         nextImage.classList.add('slide-in-from-right');
@@ -45,16 +42,14 @@ function nextSlide() {
         nextTextLayer.classList.remove('positioned-right');
         nextTextLayer.classList.add('slide-in-from-right');
         
-        setTimeout(() => {
+        setTimeout(function() {
             window.activeIndex = newIndex;
             
-            // Disable transitions temporarily
             mainImage.style.transition = 'none';
             nextImage.style.transition = 'none';
             textLayer.style.transition = 'none';
             nextTextLayer.style.transition = 'none';
             
-            // Swap images and text
             mainImage.style.backgroundImage = nextImage.style.backgroundImage;
             mainImage.className = 'main-image';
             nextImage.style.display = 'none';
@@ -69,8 +64,7 @@ function nextSlide() {
             nextTextLayer.style.display = 'none';
             nextTextLayer.className = 'text-layer';
             
-            // Re-enable transitions after a frame
-            requestAnimationFrame(() => {
+            requestAnimationFrame(function() {
                 mainImage.style.transition = '';
                 nextImage.style.transition = '';
                 textLayer.style.transition = '';
@@ -101,9 +95,8 @@ function prevSlide() {
         const nextPageDescription = document.getElementById('nextPageDescription');
         const nextBtnText = document.getElementById('nextBtnText');
         
-        // Set up next image and text
         const newIndex = (window.activeIndex - 1 + pages.length) % pages.length;
-        nextImage.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${pages[newIndex].image}')`;
+        nextImage.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + pages[newIndex].image + '\')';
         nextImage.style.display = 'block';
         nextImage.className = 'main-image positioned-left';
         
@@ -115,11 +108,9 @@ function prevSlide() {
         nextTextLayer.style.display = 'flex';
         nextTextLayer.className = 'text-layer positioned-left';
         
-        // Force reflow
         nextImage.offsetHeight;
         nextTextLayer.offsetHeight;
         
-        // Animate both images and text
         mainImage.classList.add('slide-out-right');
         nextImage.classList.remove('positioned-left');
         nextImage.classList.add('slide-in-from-left');
@@ -128,16 +119,14 @@ function prevSlide() {
         nextTextLayer.classList.remove('positioned-left');
         nextTextLayer.classList.add('slide-in-from-left');
         
-        setTimeout(() => {
+        setTimeout(function() {
             window.activeIndex = newIndex;
             
-            // Disable transitions temporarily
             mainImage.style.transition = 'none';
             nextImage.style.transition = 'none';
             textLayer.style.transition = 'none';
             nextTextLayer.style.transition = 'none';
             
-            // Swap images and text
             mainImage.style.backgroundImage = nextImage.style.backgroundImage;
             mainImage.className = 'main-image';
             nextImage.style.display = 'none';
@@ -152,8 +141,7 @@ function prevSlide() {
             nextTextLayer.style.display = 'none';
             nextTextLayer.className = 'text-layer';
             
-            // Re-enable transitions after a frame
-            requestAnimationFrame(() => {
+            requestAnimationFrame(function() {
                 mainImage.style.transition = '';
                 nextImage.style.transition = '';
                 textLayer.style.transition = '';
@@ -171,9 +159,7 @@ function initNavigation() {
     const customCursorLeft = document.getElementById('customCursorLeft');
     const customCursorRight = document.getElementById('customCursorRight');
     
-    // Mouse movement for custom cursor
-    window.addEventListener('mousemove', (e) => {
-        // Update custom cursor position
+    window.addEventListener('mousemove', function(e) {
         customCursorLeft.style.left = (e.clientX - 16) + 'px';
         customCursorLeft.style.top = (e.clientY - 16) + 'px';
         customCursorRight.style.left = (e.clientX - 16) + 'px';
@@ -192,7 +178,6 @@ function initNavigation() {
         const windowHeight = window.innerHeight;
         const threshold = windowWidth * 0.15;
         const headerHeight = 100;
-        // Calculate the top of the text area
         const textAreaTop = windowHeight - (15 * 16);
 
         if (e.clientY < headerHeight || e.clientY > textAreaTop) {
@@ -224,8 +209,7 @@ function initNavigation() {
         }
     });
 
-    // Keyboard navigation
-    window.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', function(e) {
         if (window.isCarousel || window.transitioning || window.menuOpen || window.currentSection !== 'home') return;
         
         if (e.key === 'ArrowRight') {
@@ -235,7 +219,6 @@ function initNavigation() {
         }
     });
 
-    // Click zone navigation
     leftZone.addEventListener('click', prevSlide);
     rightZone.addEventListener('click', nextSlide);
 }
