@@ -8,16 +8,13 @@ function initMenu() {
     
     menuBtn.addEventListener('click', toggleMenu);
     
-    // Add click handlers for menu items
-    menuItems.forEach(item => {
+    menuItems.forEach(function(item) {
         item.addEventListener('click', function() {
             const sectionName = this.textContent.toLowerCase();
             
-            // Close menu first
             toggleMenu();
             
-            // Navigate to section with loading animation
-            setTimeout(() => {
+            setTimeout(function() {
                 showLoadingTransition(function() {
                     navigateToSection(sectionName);
                 });
