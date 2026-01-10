@@ -15,8 +15,7 @@ function createCarouselCards() {
         
         const label = document.createElement('div');
         label.className = 'carousel-label';
-        label.innerHTML = '<div class="label-title">' + page.title + '</div>' +
-            '<div class="label-subtitle">' + page.subtitle + '</div>';
+        label.innerHTML = '<div class="label-title">' + page.title + '</div><div class="label-subtitle">' + page.subtitle + '</div>';
         
         card.appendChild(label);
         carouselStage.appendChild(card);
@@ -41,24 +40,21 @@ function updateCarousel() {
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i];
         
-        // Calculate angle relative to active card being at position 0
         let relativeIndex = i - window.activeIndex;
         if (relativeIndex < 0) relativeIndex += totalCards;
         
         const angle = (relativeIndex * anglePerCard) * (Math.PI / 180);
         const x = Math.sin(angle) * radius;
-        const z = Math.cos(angle) * radius - radius; // Active card at z=0
+        const z = Math.cos(angle) * radius - radius;
         
         const depthFactor = (z + radius) / (radius * 2);
         const baseOpacity = 0.3 + (depthFactor * 0.7);
         
         const isActive = i === window.activeIndex;
         
-        // Calculate glow intensity based on position (brightest at center)
         const glowIntensity = depthFactor;
         const glowOpacity = glowIntensity * 0.6;
         
-        // No scaling - cards stay at 400x400px
         card.style.transform = 'translateX(' + x + 'px) translateZ(' + z + 'px)';
         
         if (card.classList.contains('visible')) {
@@ -68,7 +64,6 @@ function updateCarousel() {
         card.style.zIndex = Math.round(z);
         card.style.filter = isActive ? 'brightness(1.3)' : 'brightness(0.7)';
         
-        // Update glow
         if (card.classList.contains('visible')) {
             card.style.setProperty('--glow-opacity', glowOpacity);
         }
