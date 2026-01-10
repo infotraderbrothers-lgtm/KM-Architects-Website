@@ -8,8 +8,8 @@ function initMenu() {
     
     menuBtn.addEventListener('click', toggleMenu);
     
-    menuItems.forEach(function(item) {
-        item.addEventListener('click', function() {
+    for (let i = 0; i < menuItems.length; i++) {
+        menuItems[i].addEventListener('click', function() {
             const sectionName = this.textContent.toLowerCase();
             
             toggleMenu();
@@ -20,7 +20,7 @@ function initMenu() {
                 });
             }, 500);
         });
-    });
+    }
 }
 
 function toggleMenu() {
