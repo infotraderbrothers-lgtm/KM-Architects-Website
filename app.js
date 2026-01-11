@@ -21,15 +21,14 @@ function updateContent() {
     mainImage.style.backgroundImage = 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(\'' + pages[window.activeIndex].image + '\')';
 }
 
-function showLoadingTransition(callback) {
+function showFullLoadingScreen(callback) {
     const loadingScreen = document.getElementById('loadingScreen');
     
     loadingScreen.style.display = 'flex';
     loadingScreen.style.opacity = '1';
     loadingScreen.style.visibility = 'visible';
     loadingScreen.style.pointerEvents = 'all';
-    loadingScreen.classList.add('transition');
-    loadingScreen.classList.remove('fade-out');
+    loadingScreen.classList.remove('transition');
     
     const logoBox = loadingScreen.querySelector('.loading-logo-box');
     const logoCornerTL = loadingScreen.querySelector('.loading-logo-corner-tl');
@@ -38,6 +37,13 @@ function showLoadingTransition(callback) {
     const logoLetters = loadingScreen.querySelectorAll('.loading-logo-letter');
     const logoName = loadingScreen.querySelector('.loading-logo-name');
     
+    logoCornerTL.style.animation = 'none';
+    logoCornerBR.style.animation = 'none';
+    logoDivider.style.animation = 'none';
+    logoLetters[0].style.animation = 'none';
+    logoLetters[1].style.animation = 'none';
+    logoName.style.animation = 'none';
+    
     logoCornerTL.style.opacity = '0';
     logoCornerBR.style.opacity = '0';
     logoDivider.style.opacity = '0';
@@ -45,43 +51,30 @@ function showLoadingTransition(callback) {
     logoLetters[1].style.opacity = '0';
     logoName.style.opacity = '0';
     
+    logoCornerTL.offsetHeight;
+    
+    logoCornerTL.style.animation = 'cornerFade 1s ease-out 1s forwards, cornerFadeOut 1s ease-out 6s forwards';
+    logoCornerBR.style.animation = 'cornerFade 1s ease-out 1s forwards, cornerFadeOut 1s ease-out 6s forwards';
+    logoDivider.style.animation = 'dividerFade 1s ease-out 1s forwards, dividerFadeOut 1s ease-out 6s forwards';
+    logoLetters[0].style.animation = 'letterFade 1s ease-out 1s forwards, letterFadeOut 1s ease-out 6s forwards';
+    logoLetters[1].style.animation = 'letterFade 1s ease-out 1s forwards, letterFadeOut 1s ease-out 6s forwards';
+    logoName.style.animation = 'textReveal 1.2s ease-out 2.2s forwards, textHide 1s ease-out 5s forwards';
+    
+    if (callback) {
+        setTimeout(callback, 3500);
+    }
+    
     setTimeout(function() {
-        logoCornerTL.style.opacity = '1';
-        logoCornerBR.style.opacity = '1';
-        logoDivider.style.opacity = '1';
-        logoLetters[0].style.opacity = '1';
-        logoLetters[1].style.opacity = '1';
+        loadingScreen.style.transition = 'opacity 1s ease';
+        loadingScreen.style.opacity = '0';
         
         setTimeout(function() {
-            logoName.style.opacity = '1';
-            logoName.style.clipPath = 'inset(0 0 0 0)';
-            
-            setTimeout(function() {
-                logoName.style.clipPath = 'inset(0 100% 0 0)';
-                logoName.style.opacity = '0';
-                
-                setTimeout(function() {
-                    logoLetters[0].style.opacity = '0';
-                    logoLetters[1].style.opacity = '0';
-                    logoCornerTL.style.opacity = '0';
-                    logoCornerBR.style.opacity = '0';
-                    logoDivider.style.opacity = '0';
-                    
-                    setTimeout(function() {
-                        loadingScreen.style.opacity = '0';
-                        
-                        setTimeout(function() {
-                            loadingScreen.style.display = 'none';
-                            loadingScreen.style.visibility = 'hidden';
-                            loadingScreen.style.pointerEvents = 'none';
-                            loadingScreen.classList.remove('transition');
-                            if (callback) callback();
-                        }, 1000);
-                    }, 300);
-                }, 1000);
-            }, 1500);
-        }, 500);
-    }, 100);
+            loadingScreen.style.display = 'none';
+            loadingScreen.style.visibility = 'hidden';
+            loadingScreen.style.pointerEvents = 'none';
+            loadingScreen.style.transition = '';
+        }, 1000);
+    }, 6500);
 }
 
 function handleToggle() {
@@ -179,11 +172,13 @@ function toggleSectionCarousel() {
     const toggleBtn = document.getElementById('toggleBtn');
     const sectionPage = document.getElementById('sectionPage');
     const sectionCarouselView = document.getElementById('sectionCarouselView');
+    const header = document.getElementById('header');
     
     toggleBtn.disabled = true;
     
     if (!window.sectionCarouselActive) {
         sectionPage.style.opacity = '0';
+        header.style.opacity = '0';
         
         setTimeout(function() {
             sectionPage.style.display = 'none';
@@ -205,6 +200,7 @@ function toggleSectionCarousel() {
                     cards[i].classList.add('visible');
                 }
                 scrollBar.classList.add('visible');
+                header.style.opacity = '1';
                 
                 window.sectionCarouselActive = true;
                 window.transitioning = false;
@@ -221,6 +217,7 @@ function toggleSectionCarousel() {
             cards[i].classList.remove('visible');
         }
         scrollBar.classList.remove('visible');
+        header.style.opacity = '0';
         
         setTimeout(function() {
             carouselView.classList.remove('active');
@@ -231,6 +228,7 @@ function toggleSectionCarousel() {
                 
                 setTimeout(function() {
                     sectionPage.style.opacity = '1';
+                    header.style.opacity = '1';
                     window.sectionCarouselActive = false;
                     window.transitioning = false;
                     toggleBtn.disabled = false;
@@ -334,7 +332,6 @@ function createSectionCarousel() {
     
     animateSectionCarousel();
 }
-
 function updateSectionCarousel() {
     const stage = document.getElementById('sectionCarouselStage');
     if (!stage) return;
@@ -423,7 +420,7 @@ function init() {
             logo.style.cursor = 'pointer';
             logo.addEventListener('click', function() {
                 if (window.currentSection !== 'home' && !window.transitioning) {
-                    showLoadingTransition(function() {
+                    showFullLoadingScreen(function() {
                         returnToHome();
                     });
                 }
