@@ -1329,3 +1329,295 @@ body.cursor-right * {
     color: white;
     filter: brightness(1.3);
 }
+
+/* Section Page Header Adjustments */
+.section-page .header {
+    position: absolute;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* Section Carousel View */
+#sectionCarouselView {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    z-index: 9999;
+}
+
+#sectionCarouselView.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Portfolio Scroll Bar */
+.portfolio-scroll-bar {
+    position: relative;
+    margin: 2rem auto 0;
+    width: 30rem;
+    height: 0.3rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: height 0.3s ease, background 0.3s ease;
+}
+
+.portfolio-scroll-bar.active {
+    height: 0.75rem;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* Portfolio Card Overlay */
+.portfolio-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    transition: background 0.3s ease;
+    pointer-events: none;
+}
+
+.portfolio-carousel-card:hover .portfolio-card-overlay {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.portfolio-card-label {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-carousel-card:hover .portfolio-card-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.portfolio-card-title {
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', serif;
+    margin-bottom: 0.5rem;
+    filter: brightness(1.5);
+}
+
+.portfolio-card-location {
+    color: white;
+    font-size: 1rem;
+    font-family: 'Times New Roman', serif;
+    opacity: 0.9;
+    filter: brightness(1.3);
+}
+
+/* Contact Form Styles */
+.contact-form-section {
+    margin: 4rem 0;
+    padding: 0 4rem;
+    max-width: 800px;
+    margin-left: 50%;
+}
+
+.contact-form-section h2 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    filter: brightness(1.5);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: white;
+    font-size: 1rem;
+    font-weight: 300;
+    filter: brightness(1.3);
+    opacity: 0.9;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.form-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: white;
+}
+
+.form-checkbox label {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.5;
+    filter: brightness(1.2);
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.form-submit-btn {
+    position: relative;
+    padding: 1rem 3rem;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    margin-top: 1rem;
+    filter: brightness(1.5);
+    align-self: flex-start;
+    transition: color 0.5s ease;
+}
+
+.form-submit-btn:hover {
+    color: #000;
+}
+
+.form-submit-btn .action-btn-fill {
+    position: absolute;
+    inset: 0;
+    background: white;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-out;
+}
+
+.form-submit-btn:hover .action-btn-fill {
+    transform: translateX(0);
+}
+
+.form-submit-btn span {
+    position: relative;
+    z-index: 2;
+}
+
+/* Read More Button */
+.read-more-btn {
+    position: relative;
+    padding: 1rem 3rem;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    margin-top: 2rem;
+    pointer-events: all;
+    filter: brightness(1.5);
+}
+
+.read-more-btn .action-btn-text {
+    position: relative;
+    z-index: 2;
+    transition: color 0.5s ease;
+}
+
+.read-more-btn:hover .action-btn-text {
+    color: #000;
+}
+
+.read-more-btn .action-btn-fill {
+    position: absolute;
+    inset: 0;
+    background: white;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-out;
+}
+
+.read-more-btn:hover .action-btn-fill {
+    transform: translateX(0);
+}
+
+/* Section Page Scroll Adjustments */
+.section-page {
+    scroll-behavior: smooth;
+}
+
+/* Portfolio Toggle Buttons - Updated positioning */
+.portfolio-toggle-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.portfolio-carousel-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Ensure portfolio carousel labels don't show by default */
+.portfolio-carousel-card .portfolio-card-label {
+    pointer-events: none;
+}
+
+/* Section content positioning adjustment for contact form */
+.contact-form-section {
+    margin: 4rem auto;
+    padding: 0;
+    max-width: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-form-section h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact-form {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 2rem;
+}
