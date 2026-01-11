@@ -254,7 +254,8 @@ function createSectionCarousel() {
     
     const stage = document.getElementById('sectionCarouselStage');
     
-    sectionPages.forEach(function(page, index) {
+    for (let i = 0; i < sectionPages.length; i++) {
+        const page = sectionPages[i];
         const card = document.createElement('div');
         card.className = 'carousel-card';
         card.style.backgroundImage = 'url(' + page.image + ')';
@@ -268,13 +269,22 @@ function createSectionCarousel() {
         stage.appendChild(card);
         
         card.addEventListener('click', function() {
-            if (sectionCarouselActiveIndex === index) {
+            const currentIndex = parseInt(this.parentNode.children.length);
+            let cardIndex = 0;
+            for (let j = 0; j < this.parentNode.children.length; j++) {
+                if (this.parentNode.children[j] === this) {
+                    cardIndex = j;
+                    break;
+                }
+            }
+            
+            if (sectionCarouselActiveIndex === cardIndex) {
                 const sectionKey = this.getAttribute('data-section');
                 
                 const carouselView = document.getElementById('sectionCarouselView');
                 const cards = stage.children;
-                for (let i = 0; i < cards.length; i++) {
-                    cards[i].classList.remove('visible');
+                for (let k = 0; k < cards.length; k++) {
+                    cards[k].classList.remove('visible');
                 }
                 const scrollBar = document.getElementById('sectionScrollBar');
                 scrollBar.classList.remove('visible');
@@ -299,7 +309,7 @@ function createSectionCarousel() {
                 }, 1000);
             }
         });
-    });
+    }
     
     const scrollBar = document.getElementById('sectionScrollBar');
     scrollBar.addEventListener('mouseenter', function() {
