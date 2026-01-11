@@ -1418,10 +1418,13 @@ body.cursor-right * {
 
 /* Contact Form Styles */
 .contact-form-section {
-    margin: 4rem 0;
-    padding: 0 4rem;
-    max-width: 800px;
-    margin-left: 50%;
+    margin: 4rem auto;
+    padding: 0;
+    max-width: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contact-form-section h2 {
@@ -1430,12 +1433,17 @@ body.cursor-right * {
     font-weight: 300;
     margin-bottom: 3rem;
     filter: brightness(1.5);
+    width: 100%;
+    text-align: center;
 }
 
 .contact-form {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 2rem;
 }
 
 .form-group {
@@ -1525,6 +1533,7 @@ body.cursor-right * {
     background: white;
     transform: translateX(-100%);
     transition: transform 0.5s ease-out;
+    z-index: 1;
 }
 
 .form-submit-btn:hover .action-btn-fill {
@@ -1567,6 +1576,7 @@ body.cursor-right * {
     background: white;
     transform: translateX(-100%);
     transition: transform 0.5s ease-out;
+    z-index: 1;
 }
 
 .read-more-btn:hover .action-btn-fill {
@@ -1597,27 +1607,4 @@ body.cursor-right * {
 /* Ensure portfolio carousel labels don't show by default */
 .portfolio-carousel-card .portfolio-card-label {
     pointer-events: none;
-}
-
-/* Section content positioning adjustment for contact form */
-.contact-form-section {
-    margin: 4rem auto;
-    padding: 0;
-    max-width: none;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.contact-form-section h2 {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.contact-form {
-    width: 100%;
-    max-width: 600px;
-    padding: 0 2rem;
 }
