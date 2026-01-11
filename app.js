@@ -3,6 +3,7 @@ window.activeIndex = 0;
 window.isCarousel = false;
 window.transitioning = false;
 window.currentSection = 'home';
+window.sectionCarouselActive = false;
 
 function updateContent() {
     const pageCategory = document.getElementById('pageCategory');
@@ -86,6 +87,11 @@ function showLoadingTransition(callback) {
 function handleToggle() {
     if (window.transitioning || window.menuOpen) return;
     
+    if (window.currentSection !== 'home') {
+        toggleSectionCarousel();
+        return;
+    }
+    
     window.transitioning = true;
     const toggleBtn = document.getElementById('toggleBtn');
     const header = document.getElementById('header');
@@ -158,6 +164,232 @@ function handleToggle() {
             }, 500);
         }, 1000);
     }
+}
+
+let sectionCarouselRotation = 0;
+let sectionCarouselTargetRotation = 0;
+let sectionCarouselVelocity = 0;
+let sectionCarouselActiveIndex = 0;
+let sectionCarouselScrolling = false;
+
+function toggleSectionCarousel() {
+    if (window.transitioning) return;
+    
+    window.transitioning = true;
+    const toggleBtn = document.getElementById('toggleBtn');
+    const sectionPage = document.getElementById('sectionPage');
+    const sectionCarouselView = document.getElementById('sectionCarouselView');
+    
+    toggleBtn.disabled = true;
+    
+    if (!window.sectionCarouselActive) {
+        sectionPage.style.opacity = '0';
+        
+        setTimeout(function() {
+            sectionPage.style.display = 'none';
+            
+            if (!sectionCarouselView) {
+                createSectionCarousel();
+            }
+            
+            const carouselView = document.getElementById('sectionCarouselView');
+            const carouselStage = document.getElementById('sectionCarouselStage');
+            const scrollBar = document.getElementById('sectionScrollBar');
+            
+            carouselView.style.display = 'flex';
+            carouselView.classList.add('active');
+            
+            setTimeout(function() {
+                const cards = carouselStage.children;
+                for (let i = 0; i < cards.length; i++) {
+                    cards[i].classList.add('visible');
+                }
+                scrollBar.classList.add('visible');
+                
+                window.sectionCarouselActive = true;
+                window.transitioning = false;
+                toggleBtn.disabled = false;
+            }, 1000);
+        }, 500);
+    } else {
+        const carouselView = document.getElementById('sectionCarouselView');
+        const carouselStage = document.getElementById('sectionCarouselStage');
+        const scrollBar = document.getElementById('sectionScrollBar');
+        
+        const cards = carouselStage.children;
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].classList.remove('visible');
+        }
+        scrollBar.classList.remove('visible');
+        
+        setTimeout(function() {
+            carouselView.classList.remove('active');
+            
+            setTimeout(function() {
+                carouselView.style.display = 'none';
+                sectionPage.style.display = 'block';
+                
+                setTimeout(function() {
+                    sectionPage.style.opacity = '1';
+                    window.sectionCarouselActive = false;
+                    window.transitioning = false;
+                    toggleBtn.disabled = false;
+                }, 500);
+            }, 500);
+        }, 1000);
+    }
+}
+
+function createSectionCarousel() {
+    const container = document.querySelector('.container');
+    
+    const carouselView = document.createElement('div');
+    carouselView.id = 'sectionCarouselView';
+    carouselView.className = 'carousel-view';
+    carouselView.style.display = 'none';
+    
+    carouselView.innerHTML = '<div class="carousel-container"><div class="carousel-stage" id="sectionCarouselStage"></div></div><div class="scroll-bar" id="sectionScrollBar"></div>';
+    
+    container.appendChild(carouselView);
+    
+    const stage = document.getElementById('sectionCarouselStage');
+    
+    sectionPages.forEach(function(page, index) {
+        const card = document.createElement('div');
+        card.className = 'carousel-card';
+        card.style.backgroundImage = 'url(' + page.image + ')';
+        card.setAttribute('data-section', page.key);
+        
+        const label = document.createElement('div');
+        label.className = 'carousel-label';
+        label.innerHTML = '<div class="label-title">' + page.title + '</div><div class="label-subtitle">' + page.subtitle + '</div>';
+        
+        card.appendChild(label);
+        stage.appendChild(card);
+        
+        card.addEventListener('click', function() {
+            if (sectionCarouselActiveIndex === index) {
+                const sectionKey = this.getAttribute('data-section');
+                
+                const carouselView = document.getElementById('sectionCarouselView');
+                const cards = stage.children;
+                for (let i = 0; i < cards.length; i++) {
+                    cards[i].classList.remove('visible');
+                }
+                const scrollBar = document.getElementById('sectionScrollBar');
+                scrollBar.classList.remove('visible');
+                
+                setTimeout(function() {
+                    carouselView.classList.remove('active');
+                    
+                    setTimeout(function() {
+                        carouselView.style.display = 'none';
+                        window.sectionCarouselActive = false;
+                        
+                        const mainImageContainer = document.getElementById('mainImageContainer');
+                        mainImageContainer.classList.add('shrunk');
+                        mainImageContainer.style.opacity = '0';
+                        
+                        setTimeout(function() {
+                            mainImageContainer.classList.remove('shrunk');
+                            mainImageContainer.style.opacity = '1';
+                            navigateToSection(sectionKey);
+                        }, 2000);
+                    }, 500);
+                }, 1000);
+            }
+        });
+    });
+    
+    const scrollBar = document.getElementById('sectionScrollBar');
+    scrollBar.addEventListener('mouseenter', function() {
+        sectionCarouselScrolling = true;
+        scrollBar.classList.add('active');
+    });
+    
+    scrollBar.addEventListener('mouseleave', function() {
+        sectionCarouselScrolling = false;
+        scrollBar.classList.remove('active');
+    });
+    
+    scrollBar.addEventListener('wheel', function(e) {
+        if (sectionCarouselScrolling) {
+            e.preventDefault();
+            const maxSpeed = 2;
+            const scrollDelta = Math.max(-maxSpeed, Math.min(maxSpeed, e.deltaY * 0.08));
+            sectionCarouselVelocity += scrollDelta;
+            sectionCarouselVelocity = Math.max(-maxSpeed, Math.min(maxSpeed, sectionCarouselVelocity));
+        }
+    });
+    
+    animateSectionCarousel();
+}
+
+function updateSectionCarousel() {
+    const stage = document.getElementById('sectionCarouselStage');
+    if (!stage) return;
+    
+    const cards = stage.children;
+    const totalCards = sectionPages.length;
+    const anglePerCard = 360 / totalCards;
+    const radius = 600;
+    const normalizedRotation = ((sectionCarouselRotation % 360) + 360) % 360;
+    const newActiveIndex = Math.round(normalizedRotation / anglePerCard) % totalCards;
+    
+    if (newActiveIndex !== sectionCarouselActiveIndex) {
+        sectionCarouselActiveIndex = newActiveIndex;
+    }
+    
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        
+        let relativeIndex = i - sectionCarouselActiveIndex;
+        if (relativeIndex < 0) relativeIndex += totalCards;
+        
+        const angle = (relativeIndex * anglePerCard) * (Math.PI / 180);
+        const x = Math.sin(angle) * radius;
+        const z = Math.cos(angle) * radius - radius;
+        
+        const depthFactor = (z + radius) / (radius * 2);
+        const baseOpacity = 0.3 + (depthFactor * 0.7);
+        
+        const isActive = i === sectionCarouselActiveIndex;
+        
+        const glowIntensity = depthFactor;
+        const glowOpacity = glowIntensity * 0.6;
+        
+        card.style.transform = 'translateX(' + x + 'px) translateZ(' + z + 'px)';
+        
+        if (card.classList.contains('visible')) {
+            card.style.opacity = baseOpacity;
+        }
+        
+        card.style.zIndex = Math.round(z);
+        card.style.filter = isActive ? 'brightness(1.3)' : 'brightness(0.7)';
+        
+        if (card.classList.contains('visible')) {
+            card.style.setProperty('--glow-opacity', glowOpacity);
+        }
+        
+        const label = card.querySelector('.carousel-label');
+        if (isActive && card.classList.contains('visible')) {
+            label.classList.add('active');
+        } else {
+            label.classList.remove('active');
+        }
+    }
+}
+
+function animateSectionCarousel() {
+    if (window.sectionCarouselActive) {
+        sectionCarouselTargetRotation += sectionCarouselVelocity;
+        sectionCarouselRotation += (sectionCarouselTargetRotation - sectionCarouselRotation) * 0.15;
+        sectionCarouselVelocity *= 0.88;
+        
+        updateSectionCarousel();
+    }
+    
+    requestAnimationFrame(animateSectionCarousel);
 }
 
 function init() {
