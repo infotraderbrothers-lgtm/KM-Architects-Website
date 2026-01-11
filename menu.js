@@ -15,7 +15,7 @@ function initMenu() {
             toggleMenu();
             
             setTimeout(function() {
-                showLoadingTransition(function() {
+                showFullLoadingScreen(function() {
                     navigateToSection(sectionName);
                 });
             }, 500);
