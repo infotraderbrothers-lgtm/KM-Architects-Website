@@ -16,11 +16,10 @@ function navigateToSection(sectionName) {
     
     mainImageContainer.style.display = 'none';
     content.style.display = 'none';
-    toggleBtn.style.display = 'none';
     carouselView.style.opacity = '0';
     carouselView.style.pointerEvents = 'none';
     
-    header.style.position = 'absolute';
+    header.style.position = 'fixed';
     header.style.opacity = '0';
     
     sectionPage.style.display = 'block';
@@ -40,12 +39,11 @@ function navigateToSection(sectionName) {
     
     setTimeout(function() {
         sectionPage.classList.add('active');
-        header.style.display = 'flex';
         toggleBtn.style.display = 'block';
         
         setTimeout(function() {
             header.style.opacity = '1';
-        }, 100);
+        }, 300);
     }, 50);
 }
 
@@ -169,7 +167,7 @@ function createStandardSection(container, data) {
         const sectionPage = document.getElementById('sectionPage');
         sectionPage.classList.remove('active');
         setTimeout(function() {
-            showLoadingTransition(function() {
+            showFullLoadingScreen(function() {
                 navigateToSection(data.nextSectionKey);
             });
         }, 500);
@@ -315,7 +313,7 @@ function createContactSection(container, data) {
         const sectionPage = document.getElementById('sectionPage');
         sectionPage.classList.remove('active');
         setTimeout(function() {
-            showLoadingTransition(function() {
+            showFullLoadingScreen(function() {
                 navigateToSection(data.nextSectionKey);
             });
         }, 500);
@@ -350,7 +348,6 @@ function createContactSection(container, data) {
         }
     }, 100);
 }
-
 function createPortfolioSection(container, data) {
     const heroSection = document.createElement('div');
     heroSection.className = 'section-hero';
@@ -370,13 +367,13 @@ function createPortfolioSection(container, data) {
     portfolioSection.className = 'portfolio-carousel-section';
     portfolioSection.id = 'sectionContent';
     portfolioSection.style.background = '#000';
-    portfolioSection.style.padding = '4rem 0';
+    portfolioSection.style.padding = '4rem 0 6rem 0';
     portfolioSection.style.minHeight = '100vh';
     portfolioSection.style.display = 'flex';
     portfolioSection.style.flexDirection = 'column';
     portfolioSection.style.alignItems = 'center';
     
-    portfolioSection.innerHTML = '<div class="portfolio-carousel-wrapper"><div class="portfolio-carousel-container"><div class="portfolio-carousel-stage" id="portfolioCarouselStage"></div></div><div class="portfolio-scroll-bar" id="portfolioScrollBar"></div></div><div class="portfolio-toggle-buttons"><button class="portfolio-toggle-btn active" data-type="commercial">Commercial</button><button class="portfolio-toggle-btn" data-type="residential">Residential</button></div>';
+    portfolioSection.innerHTML = '<div class="portfolio-carousel-wrapper"><div class="portfolio-carousel-container"><div class="portfolio-carousel-stage" id="portfolioCarouselStage"></div></div></div><div class="portfolio-scroll-bar" id="portfolioScrollBar"></div><div class="portfolio-toggle-buttons"><button class="portfolio-toggle-btn active" data-type="commercial">Commercial</button><button class="portfolio-toggle-btn" data-type="residential">Residential</button></div>';
     
     container.appendChild(portfolioSection);
     
@@ -418,7 +415,7 @@ function createPortfolioSection(container, data) {
         const sectionPage = document.getElementById('sectionPage');
         sectionPage.classList.remove('active');
         setTimeout(function() {
-            showLoadingTransition(function() {
+            showFullLoadingScreen(function() {
                 navigateToSection(data.nextSectionKey);
             });
         }, 500);
